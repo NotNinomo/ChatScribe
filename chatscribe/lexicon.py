@@ -23,6 +23,8 @@ COMMON_ZIPF = 3.6
 # A single-word canonical at least this common keeps the user's own casing
 # ("rogue", "horde", "fear"); rarer ones are real names ("Orgrimmar", "Hakkar").
 NAME_ZIPF = 2.5
+# An abbreviation whose letters spell a word at least this common is left as the word.
+ABBREV_WORD_ZIPF = 3.5
 
 WORD_RX = re.compile(r"[A-Za-z0-9][A-Za-z0-9'\u2019]*(?:-[A-Za-z0-9]+)*")
 
@@ -275,6 +277,11 @@ class Lexicon:
                 return None   # slang written lowercase: nothing to fix
             if single and not _is_abbrev(canon) and _name_zipf(canon) >= NAME_ZIPF:
                 return None   # "rogue", "horde", "fear": keep the user's own casing
+            if _is_abbrev(canon) and _spells_a_word(canon):
+                # BoW/HoT/DoT/CoD/LoS spell real words ("bow", "hot", "dot", "cod", "los").
+                # Only the spelled-out form ("b o w") or Whisper's own casing turns them
+                # into the abbreviation - never the plain word.
+                return None
         else:
             # Alias to an ordinary word: follow the user's casing ("rouge" -> "rogue").
             if single and not _is_abbrev(canon) and _name_zipf(canon) >= NAME_ZIPF \
@@ -328,6 +335,21 @@ class Lexicon:
 def _name_zipf(canon: str) -> float:
     """How common a one-word canonical is in English ("Un'Goro" -> ~0, "Rogue" -> 3.5)."""
     return zipf(norm(canon).replace(" ", ""))
+
+
+_WORDLIKE_SHORT = {"ah", "mm", "oh", "ok", "am", "us", "so", "no"}
+
+
+def _spells_a_word(canon: str) -> bool:
+    """BoW -> "bow", HoT -> "hot", DoT -> "dot": mixed-case abbreviations whose letters are
+    a real word. ALL-CAPS ones (HP, XP, DPS, LFG) aren't words - gamers just write them a
+    lot - so they still convert, except interjections like "ah" / "mm"."""
+    w = norm(canon).replace(" ", "")
+    if w in _WORDLIKE_SHORT:
+        return True
+    if canon != canon.upper():
+        return zipf(w) >= ABBREV_WORD_ZIPF
+    return False
 
 
 def _is_abbrev(canon: str) -> bool:

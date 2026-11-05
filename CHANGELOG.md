@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.1
+- Saying a normal word no longer turns it into a WoW abbreviation: "bow", "hot", "dot",
+  "cod", "cos", "los", "ah", "mm" stay words. Spell it out ("b o w") to get BoW / HoT.
+
 ## 1.2.0
 - **In-app updates:** ChatScribe checks GitHub at startup and offers "Update now".
   It downloads a ~160 MB update (the 1.5 GB GPU runtime is reused when unchanged),

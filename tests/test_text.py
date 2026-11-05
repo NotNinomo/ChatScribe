@@ -78,6 +78,16 @@ CASES = [
     ("I just want to forget it", ["I just want to forget it"]),
     # --- must switch
     ("Yell, inc!", ["/y Inc!"]),
+    # abbreviations that spell real words stay words unless spelled out
+    ("nice bow", ["Nice bow"]),
+    ("it's so hot in Tanaris", ["It's so hot in Tanaris"]),
+    ("connect the dots", ["Connect the dots"]),
+    ("we caught a cod", ["We caught a cod"]),
+    ("ah nice", ["Ah nice"]),
+    ("need b o w and b o k", ["Need BoW and BoK"]),
+    ("keep the HoT on the tank", ["Keep the HoT on the tank"]),
+    ("my hp is low and I need xp", ["My HP is low and I need XP"]),
+    ("lf tank", ["LF tank"]),
     ("Anyone want to do the dead mines? Question mark.", ["Anyone want to do the Deadmines?"]),
     ("Summon 2 Zul'Goroob please", ["Summon to Zul'Gurub please"]),
     ("I need 2 healers", ["I need 2 healers"]),
