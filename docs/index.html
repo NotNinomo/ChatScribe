@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ChatScribe: Speech-to-Text for WoW Chat (Free, Offline)</title>
+<meta name="description" content="Free, open-source voice-to-text for World of Warcraft: Forever. Talk and it types into WoW chat with WoW names spelled right. Runs offline on your GPU.">
+<meta name="keywords" content="WoW speech to text, World of Warcraft voice to text, WoW dictation, talk to type WoW, WoW chat voice typing, speech to text addon, WoW Forever, accessibility, Whisper">
+<link rel="canonical" href="https://notninomo.github.io/ChatScribe/">
+<link rel="icon" href="icon.png">
+<meta name="theme-color" content="#120d08">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ChatScribe">
+<meta property="og:title" content="ChatScribe: Speech-to-Text for World of Warcraft Chat">
+<meta property="og:description" content="Talk, and it types into WoW chat with the names spelled right. Free, open source, runs offline on your GPU.">
+<meta property="og:url" content="https://notninomo.github.io/ChatScribe/">
+<meta property="og:image" content="https://notninomo.github.io/ChatScribe/social-preview.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ChatScribe: Speech-to-Text for World of Warcraft Chat">
+<meta name="twitter:description" content="Talk, and it types into WoW chat with the names spelled right. Free and offline.">
+<meta name="twitter:image" content="https://notninomo.github.io/ChatScribe/social-preview.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "ChatScribe",
+  "applicationCategory": "GameApplication",
+  "applicationSubCategory": "Speech recognition / dictation",
+  "operatingSystem": "Windows 10, Windows 11",
+  "description": "Push-to-talk speech-to-text for World of Warcraft: Forever chat. Types what you say into WoW chat with WoW names spelled correctly. Runs offline on your GPU.",
+  "softwareVersion": "1.1.0",
+  "license": "https://opensource.org/licenses/MIT",
+  "url": "https://notninomo.github.io/ChatScribe/",
+  "downloadUrl": "https://github.com/NotNinomo/ChatScribe/releases/latest",
+  "codeRepository": "https://github.com/NotNinomo/ChatScribe",
+  "screenshot": "https://notninomo.github.io/ChatScribe/screenshot.png",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Is there a speech-to-text addon for World of Warcraft?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Not inside the game. WoW addons can't access your microphone, so ChatScribe is a small companion app. It turns your speech into text on your PC and types it into the WoW chat box for you. Nothing goes into your AddOns folder."}},
+    {"@type": "Question", "name": "Can I talk to type in WoW chat?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Yes. Hold your push-to-talk key, speak, and let go. ChatScribe types the line into chat and sends it. Say 'party chat', 'tell guild' or 'whisper Name' first to pick the channel by voice."}},
+    {"@type": "Question", "name": "Is ChatScribe free and does it work offline?",
+     "acceptedAnswer": {"@type": "Answer", "text": "It's free and open source (MIT), with no account and no cloud service. Speech recognition runs on your own GPU, so your voice never leaves your PC. The speech model downloads once, on first launch."}},
+    {"@type": "Question", "name": "Is it better than Windows voice typing for WoW?",
+     "acceptedAnswer": {"@type": "Answer", "text": "For WoW chat, yes. It knows over 1,200 WoW names and matches misheard ones by sound, switches chat channels by voice, formats lines like chat and sends with one key."}},
+    {"@type": "Question", "name": "Does it help players with RSI or limited hand mobility?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Yes. ChatScribe lets you chat in World of Warcraft without typing, which helps with RSI, carpal tunnel, arthritis or limited hand mobility, and when you're playing on a controller."}}
+  ]
+}
+</script>
+
+<style>
+  :root {
+    --bg: #120d08; --panel: #1e160e; --edge: #5a4325; --gold: #ffd100; --gold-dim: #c9a54a;
+    --text: #f0e6cc; --muted: #a89a7c; --red: #5c1a0e;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 17px/1.6 "Segoe UI", system-ui, -apple-system, sans-serif; }
+  a { color: var(--gold); }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
+  header { text-align: center; padding: 56px 0 24px; }
+  header img.icon { width: 88px; height: 88px; }
+  h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; color: var(--gold); line-height: 1.25; }
+  h1 { font-size: clamp(28px, 5vw, 46px); margin: 12px 0 8px; }
+  .tag { font-size: clamp(17px, 2.4vw, 21px); color: var(--text); max-width: 720px; margin: 0 auto 26px; }
+  .btn { display: inline-block; background: var(--red); color: var(--gold); text-decoration: none;
+         font: bold 18px Georgia, serif; padding: 12px 26px; border: 2px solid #8a6a2f; border-radius: 6px; }
+  .btn:hover { background: #7a2414; }
+  .btn.ghost { background: transparent; margin-left: 8px; }
+  .small { color: var(--muted); font-size: 14px; margin-top: 10px; }
+  .demo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; align-items: center;
+          margin: 40px 0; }
+  .demo img { width: 100%; max-width: 460px; border: 1px solid var(--edge); border-radius: 6px; }
+  .chat { background: #000a; border: 1px solid var(--edge); border-radius: 6px; padding: 14px 16px;
+          font: 15px/1.7 Consolas, monospace; overflow-wrap: anywhere; }
+  .chat .say { color: var(--muted); }
+  .chat .p { color: #aaaaff; } .chat .g { color: #40ff40; } .chat .w { color: #ff80ff; }
+  .chat .s { color: #fff; }
+  section { margin: 48px 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .card { background: var(--panel); border: 1px solid var(--edge); border-radius: 6px; padding: 18px; }
+  .card h3 { margin: 0 0 6px; font-size: 19px; }
+  .card p { margin: 0; }
+  table { width: 100%; border-collapse: collapse; }
+  td, th { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--edge); vertical-align: top; }
+  th { color: var(--gold-dim); font-family: Georgia, serif; }
+  code { background: #0006; padding: 1px 5px; border-radius: 3px; }
+  details { background: var(--panel); border: 1px solid var(--edge); border-radius: 6px; padding: 12px 16px;
+            margin-bottom: 10px; }
+  summary { cursor: pointer; font: bold 18px Georgia, serif; color: var(--gold); }
+  footer { color: var(--muted); font-size: 14px; text-align: center; padding: 40px 0 56px;
+           border-top: 1px solid var(--edge); }
+  @media (max-width: 720px) {
+    .demo { grid-template-columns: minmax(0, 1fr); }
+    .btn.ghost { margin: 10px 0 0; }
+    td, th { padding: 6px; font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+<header class="wrap">
+  <img class="icon" src="icon.png" alt="ChatScribe icon" width="88" height="88">
+  <h1>Speech-to-Text for World of Warcraft Chat</h1>
+  <p class="tag"><strong>ChatScribe</strong> is free voice-to-text for <strong>WoW: Forever</strong>.
+    Hold a key, talk, let go, and it types into chat with Azeroth's names spelled right.
+    It runs offline on your own GPU.</p>
+  <a class="btn" href="https://github.com/NotNinomo/ChatScribe/releases/latest">Download for Windows</a>
+  <a class="btn ghost" href="https://github.com/NotNinomo/ChatScribe">View on GitHub</a>
+  <p class="small">Free and open source (MIT) · Windows 10/11 · NVIDIA GPU recommended</p>
+</header>
+
+<main class="wrap">
+  <div class="demo">
+    <img src="screenshot.png" alt="ChatScribe window showing spoken messages turned into WoW chat lines" width="540" height="640" loading="lazy">
+    <div class="chat" aria-label="Examples of speech turned into WoW chat">
+      <div class="say">you say: "anyone want to run on kiraj tonight"</div>
+      <div class="s">[Say] Anyone want to run Ahn'Qiraj tonight?</div><br>
+      <div class="say">you say: "party chat, pulling in five seconds"</div>
+      <div class="p">[Party] Pulling in 5 seconds</div><br>
+      <div class="say">you say: "tell guild Onyxia at eight tonight"</div>
+      <div class="g">[Guild] Onyxia at 8 tonight</div><br>
+      <div class="say">you say: "whisper Thrall, want to run Dire Maul"</div>
+      <div class="w">To Thrall: Want to run Dire Maul?</div>
+    </div>
+  </div>
+
+  <section>
+    <h2>A WoW speech-to-text addon that actually works</h2>
+    <p>WoW addons can't use your microphone, so no in-game addon can do voice typing.
+      ChatScribe is a small companion app instead. It listens while you hold push-to-talk,
+      recognises your speech with Whisper (OpenAI's open-source speech model) on your graphics card, fixes
+      WoW names with a 1,200-word lexicon and sound-alike matching, and types the line into the
+      WoW chat box. Nothing goes into your AddOns folder, and your voice never leaves your PC.</p>
+  </section>
+
+  <section>
+    <h2>Features</h2>
+    <div class="grid">
+      <div class="card"><h3>Knows WoW names</h3><p>Zones, raids, bosses, NPCs, spells, items and slang.
+        "Safiran" becomes Sapphiron, and "L F G U B R S" becomes <code>LFG UBRS</code>.</p></div>
+      <div class="card"><h3>Channels by voice</h3><p>"party chat…", "tell guild…", "whisper Name…",
+        "raid warning…", "trade chat…", "slash dance". Say "scratch that" to cancel.</p></div>
+      <div class="card"><h3>Fast and private</h3><p>About 0.25 s per line on an NVIDIA GPU. No account,
+        no cloud and no telemetry. It works offline after the first model download.</p></div>
+      <div class="card"><h3>Learns your voice</h3><p>A 2-minute calibration learns how your voice gets
+        misheard, and you can right-click any message to teach it a word.</p></div>
+      <div class="card"><h3>Chat-style punctuation</h3><p>Question marks are added on their own. Spoken
+        punctuation, "smiley face" → :), um and uh removed, and "level sixty" → level 60.</p></div>
+      <div class="card"><h3>Accessibility</h3><p>Chat without typing, which helps with RSI, carpal tunnel,
+        limited hand mobility or playing on a controller.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Accuracy</h2>
+    <table>
+      <tr><th></th><th>Word accuracy on WoW chat</th></tr>
+      <tr><td>Plain speech recognition</td><td>88.4%</td></tr>
+      <tr><td><strong>ChatScribe</strong></td><td><strong>99.6%</strong> (53 of 54 lines exactly right)</td></tr>
+    </table>
+    <p class="small">Measured with the benchmark in the repository: 18 WoW chat lines read by three
+      text-to-speech voices.</p>
+  </section>
+
+  <section>
+    <h2>Get started in 2 minutes</h2>
+    <ol>
+      <li><a href="https://github.com/NotNinomo/ChatScribe/releases/latest">Download the zip</a>, unzip it anywhere and run <code>ChatScribe.exe</code>.</li>
+      <li>Wait for the one-time speech model download (about 1.6 GB).</li>
+      <li>Click <strong>Calibrate</strong>, then in game hold <strong>Right Ctrl</strong>, talk and let go.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>FAQ</h2>
+    <details><summary>Is there a speech-to-text addon for World of Warcraft?</summary>
+      <p>Not inside the game, because WoW addons can't access your microphone. ChatScribe is a companion
+        app that turns your speech into text and types it into WoW chat for you.</p></details>
+    <details><summary>Can I talk to type in WoW chat?</summary>
+      <p>Yes. Hold your push-to-talk key, speak, and let go. Say "party chat", "tell guild" or
+        "whisper Name" first to choose the channel.</p></details>
+    <details><summary>Is it free? Does it work offline?</summary>
+      <p>It's free and open source (MIT). Recognition runs on your own GPU with no account and no
+        cloud. The model downloads once.</p></details>
+    <details><summary>Is it better than Windows voice typing (Win+H) for WoW?</summary>
+      <p>For WoW chat, yes. It knows WoW names, matches misheard ones by sound, switches chat channels
+        by voice, formats lines like chat and sends with one key.</p></details>
+    <details><summary>Do I need an NVIDIA graphics card?</summary>
+      <p>It's recommended, for speed. Without one, choose the small model in Settings. It runs on the
+        CPU and is slower and less accurate.</p></details>
+    <details><summary>Is it safe to use with WoW?</summary>
+      <p>It only types text into the chat box, like pressing keys yourself, and each push-to-talk
+        press produces one chat line. It doesn't read game memory, automate gameplay or change game
+        files. Using any third-party tool is your own call.</p></details>
+  </section>
+</main>
+
+<footer class="wrap">
+  <p><a href="https://github.com/NotNinomo/ChatScribe">ChatScribe on GitHub</a> ·
+     <a href="https://github.com/NotNinomo/ChatScribe/releases">Releases</a> ·
+     <a href="https://github.com/NotNinomo/ChatScribe/blob/main/LICENSE">MIT License</a></p>
+  <p>ChatScribe is a fan-made tool. It is not affiliated with or endorsed by Blizzard Entertainment.
+     World of Warcraft and Warcraft are trademarks of Blizzard Entertainment, Inc.</p>
+</footer>
+</body>
+</html>

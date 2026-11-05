@@ -1,28 +1,41 @@
 <div align="center">
 
-<img src="assets/icon.png" width="96" alt="ChatScribe icon">
+<img src="assets/icon.png" width="96" alt="ChatScribe icon: gold C on a dark Warcraft-style frame">
 
-# ChatScribe
+# ChatScribe: Speech-to-Text for World of Warcraft Chat
 
-**Talk, and it types into WoW chat, with the names spelled right.**
+**Voice-to-text for WoW. Talk into your mic and it types into chat, with WoW names spelled right.**
 
-Push-to-talk speech-to-text for **World of Warcraft: Forever**. It runs 100% locally on your own GPU.
+Free, open-source push-to-talk dictation for **World of Warcraft: Forever**. It runs 100% offline on your own GPU.
 
-[Download](../../releases/latest) · [How it works](#how-it-works) · [Build from source](#build-from-source) · [Add your own words](#add-your-own-words)
+[![Download for Windows](https://img.shields.io/github/v/release/NotNinomo/ChatScribe?label=Download%20for%20Windows&color=c9a54a)](../../releases/latest)
+[![Tests](https://github.com/NotNinomo/ChatScribe/actions/workflows/tests.yml/badge.svg)](../../actions/workflows/tests.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-c9a54a)](LICENSE)
 
-<img src="docs/screenshot.png" width="460" alt="ChatScribe window">
+[Website](https://notninomo.github.io/ChatScribe/) · [Download](../../releases/latest) · [Features](#features) · [FAQ](#faq) · [How it works](#how-it-works) · [Build from source](#build-from-source)
+
+<img src="docs/screenshot.png" width="460" alt="ChatScribe speech-to-text window for World of Warcraft, showing voice messages typed into WoW chat">
 
 </div>
 
 ---
 
-Hold a key, say *"anyone want to run on kiraj tonight"*, let go. Your chat gets:
+Hold a key, say *"anyone want to run on kiraj tonight"*, let go. Your WoW chat gets:
 
 ```
 Anyone want to run Ahn'Qiraj tonight?
 ```
 
-Normal dictation tools mangle Azeroth: you get "on kiraj", "zool gurub" and "Nakekramas". ChatScribe pairs Whisper (an open-source speech model) with a word list of over 1,200 WoW terms and a phonetic matcher built for fantasy names, so names come out the way players actually write them.
+Looking for a **WoW speech-to-text addon**, a way to **talk to type in World of Warcraft**, or **voice dictation for WoW chat**? A real in-game addon can't do it, because WoW addons can't access your microphone. ChatScribe is a small companion app that does the job instead. You speak, and it types into the WoW chat box for you: party, raid, guild, whispers, trade and emotes.
+
+Normal dictation tools like Windows voice typing mangle Azeroth: you get "on kiraj", "zool gurub" and "Nakekramas". ChatScribe pairs Whisper (OpenAI's open-source speech recognition model) with a word list of over 1,200 WoW terms and a phonetic matcher built for fantasy names. Zones, raids, bosses and slang come out the way players actually write them.
+
+## Who it's for
+
+- **Accessibility.** Players with RSI, carpal tunnel, arthritis or limited hand mobility can chat without typing.
+- **Controller and couch players** who can't easily reach a keyboard.
+- **Raid leaders and tanks** who need to call things in chat mid-fight without letting go of their keybinds.
+- **Anyone who'd rather talk than type**: role-players, guild officers, trade-chat sellers.
 
 ## Features
 
@@ -145,14 +158,38 @@ lexicon/custom.txt          your own words
 
 ## FAQ
 
-**Why not a WoW addon?** Addons run in a sandbox. They can't hear your microphone or receive data from outside the game, so the recognition has to happen outside WoW. ChatScribe then types into the chat box the way you would: one key press gives you one chat line.
+### Is there a speech-to-text addon for World of Warcraft?
+Not inside the game. WoW addons run in a sandbox: they can't hear your microphone or receive data from outside WoW. That's why ChatScribe is a small companion app. It listens to your mic, turns your speech into text on your PC, and types it into the WoW chat box the way you would: one key press gives you one chat line. You don't install anything into your AddOns folder.
 
-**Nothing shows up in chat.**
+### Can I talk to type in WoW chat?
+Yes, that's exactly what ChatScribe does. Hold your push-to-talk key (Right Ctrl by default, or a mouse side button), speak, and let go. The line is typed into chat and sent. Say "party chat", "tell guild" or "whisper Name" at the start to pick the channel by voice.
+
+### Is it free? Does it need an account or the internet?
+It's free and open source (MIT). There's no account, no subscription and no cloud service. Speech recognition runs on your own GPU, so nothing you say ever leaves your PC. The only download is the speech model, about 1.6 GB, on first launch.
+
+### Does it work with WoW Forever?
+Yes. ChatScribe is built for **World of Warcraft: Forever**, and its word list covers Forever's Classic-era zones, dungeons, raids, bosses and items. Add new names to `lexicon/custom.txt` as they appear.
+
+### Is it better than Windows voice typing (Win+H) for WoW?
+For WoW chat, yes:
+- It knows WoW names, and it matches mispronounced ones by sound.
+- It understands chat commands and switches channels by voice.
+- It formats lines like chat (no stray full stops, `LFG` instead of "L F G").
+- It sends with one key, without leaving the game.
+
+### Do I need an NVIDIA graphics card?
+It's recommended. With an NVIDIA GPU a line takes about a quarter of a second. Without one, choose the `small.en` model in Settings. It runs on the CPU and is slower and less accurate.
+
+### Is it safe to use with WoW?
+ChatScribe only types text into the chat box, the same as pressing keys yourself, and each push-to-talk press produces one chat line. It doesn't read game memory, automate gameplay or modify game files. As with any third-party tool, using it is your own call.
+
+### Nothing shows up in chat
 - Make sure WoW is the active window. Otherwise ChatScribe copies the text to your clipboard instead.
 - If WoW runs as administrator, run ChatScribe as administrator too.
 - Check `data/chatscribe.log`.
 
-**It types into party chat or the wrong channel.** Check Settings → Push-to-talk keys. Each key has its own channel. Don't use the same button as your Discord push-to-talk.
+### It types into party chat or the wrong channel
+Check Settings → Push-to-talk keys. Each key has its own channel. Don't use the same button as your Discord push-to-talk.
 
 ## License
 
