@@ -10,15 +10,21 @@ Nothing personal is copied: config.json, calibration and learned words start fre
 from __future__ import annotations
 
 import argparse
+import hashlib
+import json
 import shutil
 import subprocess
 import sys
+import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DIST = ROOT / "dist" / "ChatScribe"
 MODEL = "large-v3-turbo"
 HF_REPO = "models--mobiuslabsgmbh--faster-whisper-large-v3-turbo"
+
+sys.path.insert(0, str(ROOT))
+from chatscribe import __version__ as VERSION  # noqa: E402
 
 
 def make_icon(path: Path) -> None:
@@ -71,34 +77,76 @@ def main() -> None:
                     str(ROOT / "ChatScribe.spec")], check=True, cwd=ROOT)
 
     print("== App files ==")
-    shutil.copytree(ROOT / "lexicon", DIST / "lexicon", dirs_exist_ok=True)
+    # Never ship anyone's personal word list.
+    shutil.copytree(ROOT / "lexicon", DIST / "lexicon", dirs_exist_ok=True,
+                    ignore=shutil.ignore_patterns("custom.txt"))
     shutil.copy2(ROOT / "README.md", DIST / "README.md")
+    shutil.copy2(ROOT / "LICENSE", DIST / "LICENSE.txt")
     (DIST / "data").mkdir(exist_ok=True)
-    for stale in ("config.json",):
+    for stale in ("config.json", "lexicon/custom.txt"):
         (DIST / stale).unlink(missing_ok=True)
-
-    if not args.no_model:
-        src = find_model()
-        if src is None:
-            sys.exit("Speech model not found - run ChatScribe once from source first, "
-                     "or build with --no-model.")
-        dst = DIST / "models" / MODEL
-        dst.mkdir(parents=True, exist_ok=True)
-        for f in src.iterdir():
-            # HF cache entries can be links into blobs/ - copy the real file contents.
-            target = dst / f.name
-            if not target.exists() or target.stat().st_size != f.resolve().stat().st_size:
-                print("   model:", f.name)
-                shutil.copyfile(f.resolve(), target)
+    runtime = runtime_id()
+    (DIST / "bundle.json").write_text(json.dumps({"version": VERSION, "runtime": runtime},
+                                                 indent=2), encoding="utf-8")
 
     size = sum(p.stat().st_size for p in DIST.rglob("*") if p.is_file()) / 1e9
     print(f"\nBuilt {DIST / 'ChatScribe.exe'}  ({size:.1f} GB folder)")
 
     if args.zip:
-        print("== Zipping ==")
-        out = shutil.make_archive(str(ROOT / "dist" / "ChatScribe"), "zip", DIST.parent,
-                                  "ChatScribe")
-        print("Wrote", out)
+        make_release(runtime)
+
+
+def runtime_id() -> str:
+    """Fingerprint of the bundled NVIDIA runtime. If a new release has the same id, the
+    updater downloads only the small app zip instead of 1.5 GB again."""
+    nv = DIST / "_internal" / "nvidia"
+    h = hashlib.sha256()
+    for f in sorted(nv.rglob("*")) if nv.is_dir() else []:
+        if f.is_file():
+            h.update(f"{f.relative_to(nv).as_posix()}:{f.stat().st_size};".encode())
+    return h.hexdigest()[:16]
+
+
+def _zip(out: Path, include) -> None:
+    with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED, compresslevel=6) as z:
+        for f in sorted(DIST.rglob("*")):
+            rel = f.relative_to(DIST)
+            if f.is_file() and include(rel):
+                z.write(f, Path("ChatScribe") / rel)
+
+
+def _sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with open(path, "rb") as fh:
+        for chunk in iter(lambda: fh.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def make_release(runtime: str) -> None:
+    """dist/ChatScribe-vX-windows.zip (full), dist/ChatScribe-vX-app.zip (no NVIDIA runtime),
+    dist/update.json (manifest the in-app updater reads)."""
+    print("== Release zips ==")
+    out_dir = ROOT / "dist"
+
+    def personal_or_model(rel: Path) -> bool:
+        top = rel.parts[0]
+        return top in ("models", "data") or rel.name in ("config.json", "custom.txt")
+
+    full = out_dir / f"ChatScribe-v{VERSION}-windows.zip"
+    app = out_dir / f"ChatScribe-v{VERSION}-app.zip"
+    _zip(full, lambda rel: not personal_or_model(rel))
+    _zip(app, lambda rel: not personal_or_model(rel)
+         and rel.parts[:2] != ("_internal", "nvidia"))
+    manifest = {
+        "version": VERSION, "runtime": runtime,
+        "full": full.name, "app": app.name,
+        "sha256": {full.name: _sha256(full), app.name: _sha256(app)},
+    }
+    (out_dir / "update.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    for f in (full, app):
+        print(f"   {f.name}  {f.stat().st_size / 1e6:,.0f} MB")
+    print("   update.json")
 
 
 if __name__ == "__main__":

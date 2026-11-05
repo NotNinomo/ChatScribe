@@ -1,6 +1,6 @@
 [project]
 name = "chatscribe"
-version = "1.1.0"
+version = "1.2.0"
 description = "Push-to-talk speech-to-text for World of Warcraft: Forever chat - local, GPU-accelerated, knows WoW names."
 readme = "README.md"
 license = { text = "MIT" }

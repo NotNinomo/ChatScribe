@@ -39,7 +39,8 @@ Normal dictation tools like Windows voice typing mangle Azeroth: you get "on kir
 
 ## Features
 
-- **Fast and private.** Whisper large-v3-turbo runs on your NVIDIA GPU and turns a line around in about 0.25 s. No account, no cloud, and no network traffic after the first model download.
+- **Fast and private.** Whisper large-v3-turbo runs on your NVIDIA GPU and turns a line around in about 0.25 s. No account and no cloud: your voice never leaves your PC.
+- **Updates itself.** When a new version is out, ChatScribe offers **Update now**. It downloads only what changed (usually about 160 MB), keeps your settings and words, and restarts.
 - **Knows WoW.** Its word list covers zones, cities, dungeons, raids, bosses, NPCs, lore characters, factions, classes, spells, items, herbs, consumables, professions and chat slang:
   - `L F G U B R S` → `LFG UBRS`
   - "Safiran" → `Sapphiron`
@@ -152,6 +153,7 @@ Everything stays inside its own folder:
 config.json                 settings (from the Settings window)
 data/learned_aliases.json   words learned from calibration and "Fix a word"
 data/chatscribe.log         log (rotated at 2 MB)
+bundle.json                 version info the updater uses
 models/                     the speech model
 lexicon/custom.txt          your own words
 ```
@@ -165,7 +167,7 @@ Not inside the game. WoW addons run in a sandbox: they can't hear your microphon
 Yes, that's exactly what ChatScribe does. Hold your push-to-talk key (Right Ctrl by default, or a mouse side button), speak, and let go. The line is typed into chat and sent. Say "party chat", "tell guild" or "whisper Name" at the start to pick the channel by voice.
 
 ### Is it free? Does it need an account or the internet?
-It's free and open source (MIT). There's no account, no subscription and no cloud service. Speech recognition runs on your own GPU, so nothing you say ever leaves your PC. The only download is the speech model, about 1.6 GB, on first launch.
+It's free and open source (MIT). There's no account, no subscription and no cloud service. Speech recognition runs on your own GPU, so nothing you say ever leaves your PC. The only internet use is the one-time speech model download (about 1.6 GB) and a quick update check against GitHub at startup, which you can turn off in Settings.
 
 ### Does it work with WoW Forever?
 Yes. ChatScribe is built for **World of Warcraft: Forever**, and its word list covers Forever's Classic-era zones, dungeons, raids, bosses and items. Add new names to `lexicon/custom.txt` as they appear.

@@ -5,12 +5,14 @@ from __future__ import annotations
 import logging
 import math
 import os
+import re
 import queue
 import threading
 import tkinter as tk
 from tkinter import messagebox, ttk
+import webbrowser
 
-from . import LEXICON_DIR, __version__
+from . import FROZEN, LEXICON_DIR, __version__, updater
 from .app import ChatScribe, Result
 from .audio import list_input_devices
 from .calibration import (LEVEL_SENTENCE, TEST_PHRASES, PhraseResult, compute_levels,
@@ -188,6 +190,8 @@ class MainWindow:
         self._build()
         self.root.protocol("WM_DELETE_WINDOW", self.quit)
         self.root.after(50, self._tick)
+        if app.cfg.check_updates:
+            self.root.after(4000, lambda: self.check_updates(manual=False))
 
     # --------------------------------------------------------------- layout
     def _build(self) -> None:
@@ -252,6 +256,9 @@ class MainWindow:
         self.foot.pack(side="left")
         ttk.Button(foot, text="Word lists", command=lambda: os.startfile(LEXICON_DIR)).pack(
             side="right")
+        self.update_btn = ttk.Button(foot, text="Updates", command=self.check_updates)
+        self.update_btn.pack(side="right", padx=6)
+        self.update_info = None
 
     def _rewrap(self, _e=None) -> None:
         w = max(self.root.winfo_width() - 60, 200)
@@ -297,6 +304,10 @@ class MainWindow:
             self.status.configure(text=ev[1])
             self.dot.itemconfigure(self._dot, fill=RED)
             self.overlay.hide()
+        elif kind == "ui_call":
+            ev[1](*ev[2])
+        elif kind == "update":
+            self._on_update(ev[1], ev[2], ev[3])
         elif kind == "capture":
             owner, fn, spec = ev[1], ev[2], ev[3]
             try:
@@ -361,6 +372,40 @@ class MainWindow:
             self.calib.win.lift()
             return
         self.calib = CalibrationWizard(self)
+
+    # ------------------------------------------------------------ updates
+    def check_updates(self, manual: bool = True) -> None:
+        if self.update_info is not None:
+            UpdateDialog(self, self.update_info)
+            return
+        if manual:
+            self.update_btn.configure(text="Checking...")
+
+        def work():
+            try:
+                info, err = updater.check(), None
+            except Exception as e:
+                info, err = None, e
+            self.app.emit("update", info, err, manual)
+        threading.Thread(target=work, daemon=True).start()
+
+    def _on_update(self, info, err, manual: bool) -> None:
+        self.update_btn.configure(text="Updates")
+        if err is not None:
+            log.info("Update check failed: %s", err)
+            if manual:
+                messagebox.showinfo("ChatScribe", "Couldn't reach GitHub to check for updates."
+                                    f"\n\n{err}", parent=self.root)
+            return
+        if info is None:
+            if manual:
+                messagebox.showinfo("ChatScribe", f"You're up to date (version {__version__}).",
+                                    parent=self.root)
+            return
+        self.update_info = info
+        self.update_btn.configure(text=f"⬆ Update to {info.version}")
+        if manual or info.version != self.app.cfg.skipped_version:
+            UpdateDialog(self, info)
 
     def quit(self) -> None:
         try:
@@ -501,7 +546,8 @@ class SettingsWindow:
                            ("only_when_wow_focused", "Only type when WoW is the active window "
                                                      "(otherwise copy to clipboard)"),
                            ("overlay", "Show the Listening badge at the top of the screen"),
-                           ("always_on_top", "Keep this window on top")):
+                           ("always_on_top", "Keep this window on top"),
+                           ("check_updates", "Check GitHub for updates at startup")):
             v = tk.BooleanVar(value=getattr(cfg, key))
             self.flags[key] = v
             ttk.Checkbutton(outer, text=label, variable=v).pack(anchor="w")
@@ -826,3 +872,120 @@ class CalibrationWizard:
                 self.learned_lbl.configure(text="Learned: " + ", ".join(
                     f"“{h}” → {c}" for h, c in learned))
             self.next_btn.configure(text="Next")
+
+
+# ===================================================================== updates
+class UpdateDialog:
+    """'ChatScribe X is available' popup with download progress and one-click install."""
+
+    def __init__(self, main: "MainWindow", info):
+        self.main, self.app, self.info = main, main.app, info
+        self._cancel = False
+        w = self.win = tk.Toplevel(main.root)
+        w.title("ChatScribe update")
+        w.configure(bg=BG)
+        w.attributes("-topmost", True)
+        w.geometry("500x420")
+        w.protocol("WM_DELETE_WINDOW", self.later)
+        f = self.body = ttk.Frame(w, padding=16)
+        f.pack(fill="both", expand=True)
+        ttk.Label(f, text=f"ChatScribe {info.version} is available", style="Head.TLabel").pack(
+            anchor="w")
+        size_mb = info.size / 1e6
+        if not FROZEN:
+            kind_text = "Updates this source folder with git pull."
+        elif info.full:
+            kind_text = f"Download: {size_mb:,.0f} MB (includes the GPU runtime)."
+        else:
+            kind_text = f"Download: {size_mb:,.0f} MB."
+        ttk.Label(f, text=f"You have {__version__}.  {kind_text}",
+                  style="Muted.TLabel").pack(anchor="w", pady=(2, 8))
+        notes = tk.Text(f, height=9, bg=PANEL, fg=TEXT, font=SMALL, wrap="word",
+                        relief="flat", highlightthickness=1, highlightbackground=EDGE)
+        notes.insert("1.0", _clean_notes(info.notes) or "See the release page for details.")
+        notes.configure(state="disabled")
+        notes.pack(fill="both", expand=True)
+        self.status = ttk.Label(f, text="Your settings, learned words and custom words are kept.",
+                                style="Muted.TLabel", wraplength=460)
+        self.status.pack(anchor="w", pady=(8, 2))
+        self.bar = ttk.Progressbar(f, maximum=1000)
+        row = self.buttons = ttk.Frame(f)
+        row.pack(fill="x", side="bottom", pady=(8, 0))
+        if updater.can_self_update():
+            ttk.Button(row, text="Update now", command=self.start).pack(side="right")
+        else:   # e.g. source folder without git: nothing we can safely overwrite
+            ttk.Button(row, text="Open release page",
+                       command=lambda: webbrowser.open(info.page_url)).pack(side="right")
+            self.status.configure(text="This copy can't update itself - download the new "
+                                       "version from the release page.")
+        ttk.Button(row, text="Later", command=self.later).pack(side="right", padx=6)
+        ttk.Button(row, text="Skip this version", command=self.skip).pack(side="left")
+
+    def later(self) -> None:
+        self._cancel = True
+        self.win.destroy()
+
+    def skip(self) -> None:
+        self.app.cfg.skipped_version = self.info.version
+        self.app.cfg.save()
+        self.later()
+
+    def start(self) -> None:
+        for c in self.buttons.winfo_children():
+            c.destroy()
+        ttk.Button(self.buttons, text="Cancel", command=self.later).pack(side="right")
+        self.bar.pack(fill="x", pady=(4, 0))
+        threading.Thread(target=self._work, daemon=True).start()
+
+    def _ui(self, fn, *a) -> None:
+        self.app.emit("ui_call", fn, a)            # Tk is only touched on the main thread
+
+    def _work(self) -> None:
+        try:
+            def prog(done, total):
+                self._ui(self._progress, done, total)
+            if not FROZEN:
+                updater.update_source_and_restart(lambda m: self._ui(self._set_status, m))
+                self._ui(self.main.quit)
+                return
+            zip_path = updater.download(self.info, prog, lambda: self._cancel)
+            self._ui(self._set_status, "Unpacking...")
+            src = updater.stage(zip_path)
+            self._ui(self._set_status, "Installing - ChatScribe will restart in a moment...")
+            updater.install_and_restart(src)
+            self._ui(self.main.quit)
+        except Exception as e:
+            if not self._cancel:
+                log.exception("update failed")
+                self._ui(self._failed, str(e))
+
+    def _progress(self, done, total) -> None:
+        if not self.win.winfo_exists():
+            return
+        if total:
+            self.bar.configure(value=1000 * done / total)
+        self.status.configure(text=f"Downloading... {done / 1e6:,.0f} / {total / 1e6:,.0f} MB")
+
+    def _set_status(self, text) -> None:
+        if self.win.winfo_exists():
+            self.status.configure(text=text)
+
+    def _failed(self, err) -> None:
+        if not self.win.winfo_exists():
+            return
+        self.status.configure(text=f"Update failed: {err}")
+        for c in self.buttons.winfo_children():
+            c.destroy()
+        ttk.Button(self.buttons, text="Open release page",
+                   command=lambda: webbrowser.open(self.info.page_url)).pack(side="right")
+        ttk.Button(self.buttons, text="Close", command=self.later).pack(side="right", padx=6)
+
+
+def _clean_notes(md: str) -> str:
+    """GitHub release notes are Markdown; show them as plain text."""
+    md = re.sub(r"<!--.*?-->", "", md, flags=re.S)
+    md = re.sub(r"\*\*(.*?)\*\*", r"\1", md)
+    md = re.sub(r"\[(.*?)\]\((.*?)\)", r"\1", md)
+    md = re.sub(r"^#+\s*", "", md, flags=re.M)
+    md = re.sub(r"^\s*[-*]\s+", "• ", md, flags=re.M)
+    return md.strip()[:3000]

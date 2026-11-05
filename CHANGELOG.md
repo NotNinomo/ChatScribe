@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2.0
+- **In-app updates:** ChatScribe checks GitHub at startup and offers "Update now".
+  It downloads a ~160 MB update (the 1.5 GB GPU runtime is reused when unchanged),
+  verifies its checksum, installs and restarts. Settings, learned words and custom words
+  are kept. Source checkouts update with git pull. Turn the check off in Settings.
+- **Noisy mics:** the silence gate can no longer cut off speech; re-calibrating no longer
+  stacks gain (which pushed the gate above the voice); spike-resistant calibration.
+- Settings: silence gate slider with live preview on the mic meter.
+
 ## 1.1.0
 - Packaged Windows build (`ChatScribe.exe`); release zip downloads the model on first run.
 - Model loads offline after the first download - no network requests at startup.

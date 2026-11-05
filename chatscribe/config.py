@@ -68,6 +68,10 @@ class Config:
     overlay: bool = True                # small "Listening..." badge at the top of the screen
     history_size: int = 30
 
+    # --- updates
+    check_updates: bool = True          # ask GitHub for a newer release at startup
+    skipped_version: str = ""           # "Skip this version" in the update popup
+
     @classmethod
     def load(cls) -> "Config":
         cfg = cls()

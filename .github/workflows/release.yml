@@ -1,6 +1,10 @@
 name: release
 
-# Push a tag like v1.1.0 to build ChatScribe.exe and attach the zip to a GitHub release.
+# Push a tag like v1.2.0 to build ChatScribe.exe and publish a GitHub release with:
+#   ChatScribe-vX.Y.Z-windows.zip  full app (~1.5 GB) for new installs
+#   ChatScribe-vX.Y.Z-app.zip      app without the NVIDIA runtime - what the in-app updater
+#                                  downloads when the runtime hasn't changed
+#   update.json                    manifest the in-app updater reads (versions, sha256)
 on:
   push:
     tags: ["v*"]
@@ -19,21 +23,26 @@ jobs:
           python-version: "3.10"
       - run: pip install -r requirements-dev.txt
       - run: python -m pytest tests -q
+      - name: Tag must match chatscribe.__version__
+        if: github.ref_type == 'tag'
+        shell: pwsh
+        run: |
+          $v = python -c "import chatscribe; print(chatscribe.__version__)"
+          if ("v$v" -ne $env:GITHUB_REF_NAME) { throw "Tag $env:GITHUB_REF_NAME but app version is $v" }
       # --no-model: GitHub release files are limited to 2 GB, so the exe downloads the
       # speech model (~1.6 GB) on first start instead of shipping it.
       - run: python tools/build_exe.py --no-model --zip
-      - name: Name the zip
-        shell: pwsh
-        run: |
-          $tag = if ($env:GITHUB_REF_TYPE -eq "tag") { $env:GITHUB_REF_NAME } else { "dev" }
-          Move-Item dist/ChatScribe.zip "dist/ChatScribe-$tag-windows.zip"
-          "ZIP=dist/ChatScribe-$tag-windows.zip" | Out-File $env:GITHUB_ENV -Append
       - uses: actions/upload-artifact@v4
         with:
           name: ChatScribe-windows
-          path: ${{ env.ZIP }}
+          path: |
+            dist/ChatScribe-*.zip
+            dist/update.json
       - uses: softprops/action-gh-release@v2
         if: github.ref_type == 'tag'
         with:
-          files: ${{ env.ZIP }}
+          files: |
+            dist/ChatScribe-*-windows.zip
+            dist/ChatScribe-*-app.zip
+            dist/update.json
           generate_release_notes: true
