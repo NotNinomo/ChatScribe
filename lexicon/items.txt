@@ -1,0 +1,268 @@
+# ============================================================
+# Items, materials, consumables, tier sets, professions
+# ============================================================
+
+[Legendaries and famous drops]
+Thunderfury = thunder fury
+Thunderfury, Blessed Blade of the Windseeker = thunderfury blessed blade of the windseeker
+Bindings of the Windseeker = bindings of the wind seeker
+Sulfuras, Hand of Ragnaros = sulfuras hand of ragnaros
+Sulfuras = sulfur us; sulphuras; sulfuras's
+Eye of Sulfuras
+Atiesh = a tish; ateesh; atiesh's; ah teesh
+Atiesh, Greatstaff of the Guardian = atiesh greatstaff of the guardian
+Ashkandi = ash kandi; ash candy; ashcandy
+Ashjre'thul = ashjrethul; ash jre thul
+Ashbringer = ash bringer
+Corrupted Ashbringer = corrupted ash bringer
+Ironfoe = iron foe
+Hand of Justice
+Lionheart Helm = lion heart helm
+Edgemaster's Handguards = edgemasters handguards; edge masters
+Blackhand's Breadth = blackhands breadth
+Drake Fang Talisman = drakefang talisman
+Onslaught Girdle
+Arcanite Reaper = arcanite reaper; arkanite reaper
+Kiss of the Spider
+Badge of the Swarmguard = badge of the swarm guard
+Jom Gabbar = jom gabar
+Zandalarian Hero Charm
+Talisman of Ephemeral Power
+Neltharion's Tear = neltharions tear
+Rejuvenating Gem
+Mish'undare, Circlet of the Mind Flayer = mishundare
+Mish'undare = mishundare; mish undare
+Heart of Hakkar
+Head of Onyxia
+Head of Nefarian
+Hearthstone = hearth stone
+Swift Razzashi Raptor = swift razashi raptor
+Swift Zulian Tiger
+Deathcharger's Reins = death chargers reins; deathchargers reins
+Black Qiraji Resonating Crystal = black qiraji crystal; black kiraji crystal
+Qiraji = kiraji; kerajee
+Benediction
+Anathema
+Rhok'delar = rhokdelar; rok delar
+Lok'delar = lokdelar
+Quel'Serrar = quel serrar; kel serrar; quelserrar
+Thori'dal = thoridal
+Dal'Rend = dal rend; dalrend
+Felstriker = fel striker
+Bonereaver's Edge = bonereavers edge; bone reavers edge
+Spinal Reaper
+Obsidian Edged Blade
+Hand of Edward the Odd
+Barman Shanker
+Gutgore Ripper = gut gore ripper
+Chromatically Tempered Sword
+Crul'shorukh = crulshorukh
+Deathbringer = death bringer
+Vis'kag the Bloodletter = viskag
+Brutality Blade
+Maladath = mala dath; maladeth
+Chromatic Boots
+Nemesis Skullcap
+
+[Tier sets]
+Dragonstalker = dragon stalker
+Netherwind = nether wind
+Bloodfang = blood fang
+Stormrage = storm rage
+Dreadnaught = dreadnought
+Judgement Armor = judgment armor
+Transcendence
+Nemesis
+Ten Storms
+Bonescythe = bone scythe
+Frostfire = frost fire
+Plagueheart = plague heart
+Cryptstalker = crypt stalker
+Dreamwalker = dream walker
+Earthshatter = earth shatter
+Redemption Armor
+Arcanist = arkanist
+Felheart = fel heart
+Nightslayer = night slayer
+Giantstalker = giant stalker
+Lawbringer = law bringer
+Earthfury = earth fury
+Cenarion Raiment = senarion raiment
+Vestments of Prophecy
+Battlegear of Might
+Battlegear of Wrath
+Valor = valour
+Lightforge = light forge
+Beaststalker = beast stalker
+Shadowcraft = shadow craft
+Wildheart = wild heart
+Devout
+Magister's Regalia = magisters regalia
+Dreadmist = dread mist
+The Elements
+
+[Materials]
+Arcanite Bar = arkanite bar
+Arcanite = arkanite
+Thorium Bar = thorium
+Elementium = elementium ore
+Dark Iron Bar = dark iron
+Truesilver = true silver
+Mithril = mythril; mithrill
+Runecloth = rune cloth
+Mooncloth = moon cloth
+Felcloth = fel cloth
+Mageweave = mage weave
+Silk Cloth
+Linen Cloth
+Wool Cloth
+Devilsaur Leather = devil saur leather; devilsaur
+Devilsaur = devil saur
+Rugged Leather
+Core Leather
+Enchanted Leather
+Large Brilliant Shard
+Small Brilliant Shard
+Nexus Crystal
+Illusion Dust
+Greater Eternal Essence
+Lesser Eternal Essence
+Greater Nether Essence
+Dream Dust
+Vision Dust
+Strange Dust
+Soul Dust
+Essence of Fire
+Essence of Earth
+Essence of Water
+Essence of Air
+Essence of Undeath
+Living Essence
+Elemental Fire
+Lava Core
+Fiery Core
+Blood of the Mountain
+Sulfuron Ingot = sulfuron bar
+Righteous Orb = righteous orbs
+Soul Shard = soulshard
+Star Ruby
+Azerothian Diamond = azerothian diamonds
+Huge Emerald
+Arcane Crystal
+
+[Herbs]
+Black Lotus = blacklotus
+Dreamfoil = dream foil
+Mountain Silversage = mountain silver sage
+Plaguebloom = plague bloom
+Icecap = ice cap
+Gromsblood = groms blood; grom's blood
+Golden Sansam = golden sansom
+Ghost Mushroom
+Sungrass = sun grass
+Firebloom = fire bloom
+Khadgar's Whisker = khadgars whisker; cadgars whisker
+Kingsblood = kings blood
+Fadeleaf = fade leaf
+Peacebloom = peace bloom
+Silverleaf = silver leaf
+Earthroot = earth root
+Mageroyal = mage royal
+Briarthorn = briar thorn
+Stranglekelp = strangle kelp
+Bruiseweed = bruise weed
+Wild Steelbloom = wild steel bloom
+Grave Moss
+Liferoot = life root
+Goldthorn = gold thorn
+Wintersbite = winters bite
+Arthas' Tears = arthas tears
+Purple Lotus
+Blindweed = blind weed
+
+[Consumables]
+Flask of the Titans
+Flask of Supreme Power
+Flask of Distilled Wisdom
+Flask of Chromatic Resistance
+Elixir of the Mongoose
+Elixir of Giants
+Elixir of Brute Force
+Greater Arcane Elixir
+Elixir of Shadow Power
+Elixir of Greater Firepower
+Elixir of Frost Power
+Elixir of Superior Defense
+Major Healing Potion
+Major Mana Potion
+Superior Healing Potion
+Superior Mana Potion
+Free Action Potion
+Limited Invulnerability Potion
+Greater Fire Protection Potion
+Greater Shadow Protection Potion
+Greater Nature Protection Potion
+Greater Stoneshield Potion = greater stone shield potion
+Mighty Rage Potion
+Restorative Potion
+Winterfall Firewater = winterfall fire water
+Juju Power = ju ju power
+Juju Might = ju ju might
+Juju Ember = ju ju ember
+Mageblood Potion = mage blood potion
+Rumsey Rum Black Label = rumsey rum
+Gordok Green Grog = gordok green grog
+Dense Sharpening Stone
+Elemental Sharpening Stone
+Dense Weightstone = dense weight stone
+Brilliant Wizard Oil
+Brilliant Mana Oil
+Lesser Mana Oil
+Smoked Desert Dumplings = desert dumplings
+Grilled Squid
+Nightfin Soup = night fin soup
+Runn Tum Tuber Surprise = run tum tuber surprise
+Dirge's Kickin' Chimaerok Chops = dirges kickin chimaerok chops; chimaerok chops
+Major Healthstone = major health stone
+Demonic Rune
+Dark Rune
+Goblin Sapper Charge = sapper charge
+Dense Dynamite
+Iron Grenade
+Thorium Grenade
+Arcanite Dragonling = arkanite dragonling
+Gnomish Battle Chicken
+Goblin Rocket Boots
+Gnomish Cloaking Device
+Goblin Jumper Cables = jumper cables
+Gnomish Mind Control Cap
+Field Repair Bot 74A = repair bot
+Goblin Rocket Helmet
+Hyper-Radiant Flame Reflector = flame reflector
+Ice Deflector
+Linen Bandage
+Heavy Runecloth Bandage = heavy rune cloth bandage
+Anti-Venom = antivenom
+
+[Professions]
+Alchemy
+Blacksmithing = black smithing
+Enchanting
+Engineering
+Herbalism
+Leatherworking = leather working
+Mining
+Skinning
+Tailoring
+First Aid
+Fishing
+Cooking
+Lockpicking = lock picking
+Goblin Engineering
+Gnomish Engineering
+Transmute = transmute arcanite
+Crusader = crusader enchant
+Fiery Weapon
+Lifestealing = life stealing
+Icy Chill
+Enchant Weapon - Crusader = enchant weapon crusader

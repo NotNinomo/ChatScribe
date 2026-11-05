@@ -1,0 +1,21 @@
+[project]
+name = "chatscribe"
+version = "1.1.0"
+description = "Push-to-talk speech-to-text for World of Warcraft: Forever chat - local, GPU-accelerated, knows WoW names."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+classifiers = ["Operating System :: Microsoft :: Windows", "Topic :: Games/Entertainment"]
+dynamic = ["dependencies"]
+
+[project.scripts]
+chatscribe = "chatscribe.__main__:main"
+
+[tool.setuptools]
+packages = ["chatscribe"]
+
+[tool.setuptools.dynamic]
+dependencies = { file = ["requirements.txt"] }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

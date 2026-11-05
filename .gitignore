@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Build output
+build/
+dist/
+
+# Personal / machine-local data - never commit
+config.json
+data/
+models/
+lexicon/custom.txt
+
+# OS / editors
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/

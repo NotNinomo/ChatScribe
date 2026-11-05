@@ -1,0 +1,88 @@
+# ============================================================
+# Dungeons, raids, battlegrounds (+ the short names players use)
+# ============================================================
+
+[Dungeons]
+Ragefire Chasm = rage fire chasm; ragefire chasim
+Wailing Caverns = whaling caverns; wailing caves
+The Deadmines = the dead mines; deadmines
+Deadmines = dead mines
+Shadowfang Keep = shadow fang keep; shadowfang
+Blackfathom Deeps = black fathom deeps; blackfathom deep
+The Stockade = the stockades
+Stockades = stockade
+Gnomeregan = gnome regan; nomeregan; gnome reagan; gnomeragan; gnome regen
+Razorfen Kraul = razor fen kraul; razorfen crawl; razor fen crawl
+Razorfen Downs = razor fen downs
+Scarlet Monastery = scarlet monastary
+Uldaman = ulda man; old aman; uldeman; ul da man
+Zul'Farrak = zul farrak; zool farrak; zulfarrak; zul farak; zul'farak
+Maraudon = mara don; maraudon; marauden; mara udon
+Sunken Temple
+Temple of Atal'Hakkar = temple of atal hakkar; atal hakar
+Blackrock Depths = black rock depths
+Lower Blackrock Spire = lower black rock spire
+Upper Blackrock Spire = upper black rock spire
+Blackrock Spire = black rock spire
+Dire Maul = dire maul; dyer maul; dire mall
+Stratholme = strath holm; strath home; strat holme; strat home; stratholm; strathholme; strat holm
+Scholomance = scholo mance; skolo mance; scholomantz; scolomance; skolomance
+
+[Raids]
+Molten Core = molten corps
+Onyxia's Lair = onyxias lair; onyxia lair; onyxia's layer
+Blackwing Lair = black wing lair; blackwing layer
+Zul'Gurub = zul gurub; zool gurub; zulgurub; zul guru; zul gurab
+Ruins of Ahn'Qiraj = ruins of on kiraj; ruins of ahn kiraj; ruins of an kiraj
+Temple of Ahn'Qiraj = temple of on kiraj; temple of ahn kiraj; temple of an kiraj
+Ahn'Qiraj = on kiraj; ahn kiraj; an kiraj; ahn qiraj; ankiraj; on qiraj; an qiraj; ahn'kiraj; aq'iraj
+Naxxramas = nax ramas; naxx ramas; nax ramus; naxramas; naxramus; nacks ramas
+Karazhan = kara zan; karazan; kara zhan; karajan
+Emerald Sanctum
+Tower of Karazhan
+
+[Battlegrounds]
+Warsong Gulch = war song gulch; warsong gultch
+Arathi Basin = arathy basin; a rathi basin
+Alterac Valley = alterak valley; alter ack valley
+
+[Short names: exact only - say them the way you type them]
+!RFC = r f c
+!WC = w c
+!VC = v c
+!SFK = s f k
+!BFD = b f d
+!RFK = r f k
+!RFD = r f d
+!SM = s m
+!ZF = z f
+!ST = s t
+!BRD = b r d
+!LBRS = l b r s; el bee r s
+!UBRS = u b r s; you b r s
+!DM = d m
+!MC = m c
+!BWL = b w l
+!ZG = z g; zee gee
+!AQ = a q
+!AQ20 = aq 20; a q 20; aq twenty; a q twenty
+!AQ40 = aq 40; a q 40; aq forty; a q forty
+!Ony = onie; oni
+!Naxx = nax; nacks
+!Strat = strat; strath
+!Scholo = scholo; skolo; scolo
+!Gnomer = gnomer; nomer
+!Mara = mara
+!Kara = kara
+!DME = d m e
+!DMW = d m w
+!DMN = d m n
+!SM Cath = sm cath; s m cath; sm cathedral
+!SM Arm = sm arm; s m arm; sm armory
+!SM Lib = sm lib; s m lib; sm library
+!SM GY = sm gy; s m g y; sm graveyard
+!Stocks = stocks
+!AV = a v
+!AB = a b
+!WSG = w s g
+!BG = b g

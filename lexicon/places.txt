@@ -1,0 +1,173 @@
+# ============================================================
+# Places: continents, zones, cities, towns, landmarks
+# ============================================================
+
+[World]
+Azeroth = as a roth; azaroth; asaroth; a zeroth; azeroth's
+Kalimdor = kalim door; kalimdore; kalindor; kalim dor
+Eastern Kingdoms
+Northrend = north rend
+Outland = out land
+Quel'Thalas = quel thalas; kel thalas; kwel thalas; quelthalas; kel'thalas
+Lordaeron = lord aeron; lordaron; lord erin; lordaeron
+Khaz Modan = kaz modan; khazmodan
+Kul Tiras = cool tiras; kultiras; cool tearess
+Gilneas = gil neas; gilnees; gilneus
+Hyjal = high jal; hijal; hyjal; mount hyjal
+Mount Hyjal = mount high jal; mount hijal
+Grim Batol = grim batal; grimbatol
+Zandalar = zan dalar; zandalar
+Emerald Dream = emerald dream
+Twisting Nether = twisting nether
+
+[Kalimdor zones]
+Durotar = duro tar; dura tar; durotarr
+The Barrens = the barons; the barrens
+Barrens = barons
+Mulgore = mul gore; mulgor; mole gore
+Teldrassil = tel drassil; teldrasil; tell drassil
+Darkshore = dark shore
+Ashenvale = ashen vale; ashenvail
+Stonetalon Mountains = stone talon mountains; stonetalon
+Stonetalon = stone talon
+Desolace = deso lace; dessolace
+Thousand Needles
+Dustwallow Marsh = dust wallow marsh; dustwallow
+Dustwallow = dust wallow
+Feralas = feral us; feralis; ferallas
+Tanaris = tan aris; tanaris
+Un'Goro Crater = ungoro crater; un goro crater; un'goro crater; ungaro crater
+Un'Goro = ungoro; un goro; ungaro
+Silithus = silithis; sili thus; silathus
+Azshara = ashara; az shara; azzshara
+Felwood = fell wood
+Winterspring = winter spring
+Moonglade = moon glade
+Bloodmyst Isle = blood mist isle
+Azuremyst Isle = azure mist isle
+
+[Eastern Kingdoms zones]
+Elwynn Forest = elwin forest; elwyn forest; elven forest
+Elwynn = elwin; elwyn
+Westfall = west fall
+Redridge Mountains = red ridge mountains
+Redridge = red ridge
+Duskwood = dusk wood
+Stranglethorn Vale = strangle thorn vale; stranglethorn veil
+Stranglethorn = strangle thorn
+Dun Morogh = dun moro; dun morog; dunmorogh; done morogh
+Loch Modan = lock modan; loch moden
+Wetlands = wet lands
+Tirisfal Glades = tiris fall glades; tirisfal; tyrisfal glades; teris fall glades
+Tirisfal = tiris fall; tyrisfal
+Silverpine Forest = silver pine forest
+Silverpine = silver pine
+Hillsbrad Foothills = hills brad foothills; hillsbrad
+Hillsbrad = hills brad; hillsbred
+Alterac Mountains = alterak mountains
+Alterac = alterak; alter ack
+Arathi Highlands = arathi highlands; arathy highlands; a rathi highlands
+Arathi = arathy; a rathi
+Badlands = bad lands
+Searing Gorge
+Burning Steppes = burning steps
+Swamp of Sorrows
+Blasted Lands
+Deadwind Pass = dead wind pass
+Western Plaguelands = western plague lands
+Eastern Plaguelands = eastern plague lands
+Plaguelands = plague lands
+The Hinterlands = the hinter lands
+Hinterlands = hinter lands
+Isle of Quel'Danas = isle of quel danas
+
+[Capital cities]
+Stormwind = storm wind; stormwind city
+Ironforge = iron forge
+Darnassus = darnasus; dar nassus; darnassis
+Orgrimmar = orgrimar; org rimmar; orgrimmer; or grimmar; orgrimma
+Thunder Bluff = thunderbluff; thunder bluf
+Undercity = under city
+Silvermoon City = silver moon city
+Silvermoon = silver moon
+The Exodar = the exodar; the exodus
+Shattrath = shat rath; shattrath city
+
+[Towns, outposts, landmarks]
+Booty Bay = booty bay
+Gadgetzan = gadget zan; gadgetsan; gadgetzahn
+Ratchet
+Everlook = ever look
+Theramore = thera more; theramore isle
+Menethil Harbor = menethil harbour; menethil; mena thill harbor
+Southshore = south shore
+Tarren Mill = taren mill; tarrenmill; tarren mil
+Goldshire = gold shire
+Lakeshire = lake shire
+Darkshire = dark shire
+Sentinel Hill
+Northshire = north shire; northshire abbey
+Kharanos = kara nos; karanos; kharanos
+Thelsamar = thel samar; thelsamar
+Crossroads = xroads; x roads
+Camp Taurajo = camp tarajo; camp taurajo; camp tora ho
+Razor Hill
+Sen'jin Village = senjin village; sen jin village
+Valley of Trials
+Bloodhoof Village = blood hoof village
+Brill
+The Sepulcher = the sepulchre
+Hammerfall = hammer fall
+Refuge Pointe = refuge point
+Stonard = stone ard; stonard
+Nethergarde Keep = nether guard keep; nethergarde
+Aerie Peak = airy peak; aery peak
+Revantusk Village = revan tusk village; revantusk
+Kargath = car gath; kargath
+Thorium Point
+Light's Hope Chapel = lights hope chapel; lights hope
+Light's Hope = lights hope
+Chillwind Camp = chill wind camp
+Cenarion Hold = senarion hold; cenarian hold
+Nijel's Point = nigel's point; nigels point; nijels point
+Shadowprey Village = shadow prey village
+Camp Mojache = camp mohache; camp mojache; camp mo ha chay
+Feathermoon Stronghold = feather moon stronghold; feathermoon
+Astranaar = astra nar; astranar
+Auberdine = ober dine; auberdeen; auber dine
+Splintertree Post = splinter tree post
+Sun Rock Retreat = sunrock retreat
+Freewind Post = free wind post
+Brackenwall Village = bracken wall village
+Marshal's Refuge = marshals refuge
+Grom'gol = grom gol; gromgol; grom goal
+Rebel Camp
+Nesingwary's Expedition = nesingwarys expedition
+Dolanaar = dolanar; dolan ar
+Shadowglen = shadow glen
+Rut'theran Village = rut theran village; ruttheran
+Steamwheedle Port = steam wheedle port
+Cenarion Refuge = senarion refuge
+Talrendis Point = tal rendis point
+Bael Modan = bale modan
+Ruins of Lordaeron
+Thorium Brotherhood
+Blackrock Mountain = black rock mountain
+Blackrock = black rock
+Dark Portal = the dark portal
+Caverns of Time
+Tower of Karazhan = tower of kara zan
+Uldum = ul dum; ooldum
+Gurubashi Arena = guru bashi arena; gurubashi
+Altar of Storms
+Bough Shadow = bow shadow
+Maraudon Portal
+The Great Lift
+Ruins of Ahn'Qiraj
+Hall of Legends
+Champion's Hall = champions hall
+Valley of Strength
+Valley of Honor
+Trade District
+Cathedral of Light
+Deeprun Tram = deep run tram; the tram

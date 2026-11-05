@@ -1,0 +1,11 @@
+﻿# ============================================================
+# YOUR words. Add guild names, friends, alts, new Forever zones and
+# bosses here. Same format as the other files (see README.txt).
+# (This file is yours: it is not tracked by git.)
+# ChatScribe also writes words it learns during calibration to
+# data/learned_aliases.json - you don't need to copy those here.
+# ============================================================
+
+# Examples (remove the # to use):
+# <Ironclad Vanguard> = iron clad vanguard
+# Thrallbro = thrall bro; trawl bro

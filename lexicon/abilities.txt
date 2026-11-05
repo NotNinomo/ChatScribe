@@ -1,0 +1,363 @@
+# ============================================================
+# Spells, abilities, buffs, talents
+# Multi-word names get proper casing when said in full.
+# Single common English words (Fear, Charge, Kick...) are left alone on purpose.
+# ============================================================
+
+[Warrior]
+Sunder Armor = sunder armour
+Shield Wall
+Shield Slam
+Shield Block
+Shield Bash
+Mortal Strike
+Bloodthirst = blood thirst
+Whirlwind = whirl wind
+Heroic Strike
+Thunder Clap = thunderclap
+Mocking Blow
+Challenging Shout
+Battle Shout
+Demoralizing Shout = demoralising shout
+Intimidating Shout
+Berserker Rage
+Berserker Stance
+Defensive Stance
+Battle Stance
+Death Wish
+Last Stand
+Sweeping Strikes
+Piercing Howl
+Concussion Blow
+Recklessness = wrecklessness
+Retaliation
+
+[Paladin]
+Blessing of Kings
+Blessing of Might
+Blessing of Wisdom
+Blessing of Salvation
+Blessing of Light
+Blessing of Sanctuary
+Blessing of Freedom
+Blessing of Protection
+Blessing of Sacrifice
+Greater Blessing of Kings
+Greater Blessing of Might
+Greater Blessing of Wisdom
+Greater Blessing of Salvation
+Divine Shield
+Divine Protection
+Divine Intervention
+Divine Favor = divine favour
+Lay on Hands = lay on hand
+Holy Light
+Flash of Light
+Holy Shock
+Holy Shield
+Holy Wrath
+Hammer of Justice
+Hammer of Wrath
+Seal of Righteousness
+Seal of Command
+Seal of the Crusader
+Seal of Wisdom
+Seal of Light
+Seal of Justice
+Judgement of Wisdom = judgment of wisdom
+Judgement of Light = judgment of light
+Judgement of the Crusader = judgment of the crusader
+Righteous Fury
+Turn Undead
+Devotion Aura
+Retribution Aura
+Concentration Aura
+Sanctity Aura
+Fire Resistance Aura
+Frost Resistance Aura
+Shadow Resistance Aura
+
+[Hunter]
+Aimed Shot
+Multi-Shot = multi shot; multishot
+Arcane Shot
+Serpent Sting
+Viper Sting
+Scorpid Sting = scorpion sting
+Wyvern Sting = wyvern's sting
+Hunter's Mark = hunters mark
+Tranquilizing Shot = tranquilising shot
+Feign Death = fake death; fain death
+Freezing Trap
+Frost Trap
+Explosive Trap
+Immolation Trap
+Aspect of the Hawk
+Aspect of the Cheetah
+Aspect of the Pack
+Aspect of the Monkey
+Aspect of the Wild
+Aspect of the Beast
+Trueshot Aura = true shot aura
+Rapid Fire
+Bestial Wrath
+Scatter Shot
+Concussive Shot
+Distracting Shot
+Mend Pet
+Revive Pet
+Tame Beast
+Eyes of the Beast
+Eagle Eye
+Wing Clip
+Raptor Strike
+Mongoose Bite
+
+[Rogue]
+Sinister Strike
+Slice and Dice = slice n dice; slice & dice
+Kidney Shot
+Cheap Shot
+Ghostly Strike
+Adrenaline Rush
+Blade Flurry
+Cold Blood
+Expose Armor = expose armour
+Pick Pocket = pickpocket
+Pick Lock = picklock
+Instant Poison
+Deadly Poison
+Crippling Poison
+Mind-numbing Poison = mind numbing poison
+Wound Poison
+Thistle Tea
+
+[Priest]
+Power Word: Fortitude = power word fortitude
+Power Word: Shield = power word shield
+Prayer of Fortitude
+Prayer of Spirit
+Prayer of Shadow Protection
+Prayer of Healing
+Divine Spirit
+Shadow Protection
+Fear Ward
+Inner Fire
+Inner Focus
+Flash Heal
+Greater Heal
+Holy Nova
+Holy Fire
+Mind Blast
+Mind Flay
+Mind Control
+Mind Soothe
+Mind Vision
+Shadow Word: Pain = shadow word pain
+Devouring Plague
+Vampiric Embrace = vampiric embrace
+Shadowform = shadow form
+Psychic Scream
+Mana Burn
+Dispel Magic
+Abolish Disease
+Cure Disease
+Power Infusion
+Spirit of Redemption
+Lightwell = light well
+Shackle Undead
+Desperate Prayer
+Elune's Grace = elunes grace
+
+[Shaman]
+Chain Lightning
+Lightning Bolt
+Chain Heal
+Healing Wave
+Lesser Healing Wave
+Earth Shock
+Frost Shock
+Flame Shock
+Windfury Totem = wind fury totem
+Grace of Air Totem
+Strength of Earth Totem
+Tremor Totem
+Grounding Totem
+Mana Spring Totem
+Mana Tide Totem
+Healing Stream Totem
+Searing Totem
+Fire Nova Totem
+Magma Totem
+Stoneskin Totem = stone skin totem
+Stoneclaw Totem = stone claw totem
+Earthbind Totem = earth bind totem
+Poison Cleansing Totem
+Disease Cleansing Totem
+Fire Resistance Totem
+Frost Resistance Totem
+Nature Resistance Totem
+Windwall Totem = wind wall totem
+Tranquil Air Totem
+Flametongue Weapon = flame tongue weapon
+Windfury Weapon = wind fury weapon
+Windfury = wind fury
+Rockbiter Weapon = rock biter weapon
+Frostbrand Weapon = frost brand weapon
+Lightning Shield
+Ghost Wolf
+Ancestral Spirit
+Stormstrike = storm strike
+Elemental Mastery
+Nature's Swiftness = natures swiftness
+Astral Recall
+
+[Mage]
+Fireball = fire ball
+Frostbolt = frost bolt
+Arcane Missiles
+Arcane Explosion
+Arcane Intellect
+Arcane Brilliance
+Arcane Power
+Flamestrike = flame strike
+Pyroblast = pyro blast
+Fire Blast = fireblast
+Cone of Cold
+Frost Nova
+Ice Block
+Ice Barrier
+Ice Armor = ice armour
+Frost Armor = frost armour
+Mage Armor = mage armour
+Cold Snap
+Polymorph = poly morph
+Counterspell = counter spell
+Evocation
+Mana Shield
+Conjure Water
+Conjure Food
+Conjure Mana Ruby
+Remove Lesser Curse
+Slow Fall
+Amplify Magic
+Dampen Magic
+Presence of Mind
+Combustion
+Blast Wave
+Fire Ward
+Frost Ward
+Teleport: Orgrimmar = teleport orgrimmar
+Teleport: Stormwind = teleport stormwind
+Teleport: Ironforge = teleport ironforge
+Teleport: Undercity = teleport undercity
+Teleport: Darnassus = teleport darnassus
+Teleport: Thunder Bluff = teleport thunder bluff
+Portal: Orgrimmar = portal orgrimmar; portal to orgrimmar
+Portal: Stormwind = portal stormwind; portal to stormwind
+Portal: Ironforge = portal ironforge; portal to ironforge
+Portal: Undercity = portal undercity; portal to undercity
+Portal: Darnassus = portal darnassus; portal to darnassus
+Portal: Thunder Bluff = portal thunder bluff; portal to thunder bluff
+
+[Warlock]
+Shadow Bolt = shadowbolt
+Curse of Agony
+Curse of Doom
+Curse of the Elements
+Curse of Shadow
+Curse of Recklessness
+Curse of Tongues
+Curse of Weakness
+Curse of Exhaustion
+Searing Pain
+Soul Fire = soulfire
+Conflagrate
+Shadowburn = shadow burn
+Siphon Life
+Drain Life
+Drain Mana
+Drain Soul
+Life Tap = lifetap
+Dark Pact
+Howl of Terror
+Death Coil
+Enslave Demon
+Summon Imp
+Summon Voidwalker = summon void walker
+Summon Succubus
+Summon Felhunter = summon fel hunter
+Voidwalker = void walker
+Succubus = sucubus
+Felhunter = fel hunter
+Imp
+Ritual of Doom
+Ritual of Summoning
+Create Healthstone = create health stone
+Create Soulstone = create soul stone
+Healthstone = health stone
+Soulstone = soul stone
+Demon Skin
+Demon Armor = demon armour
+Shadow Ward
+Health Funnel
+Eye of Kilrogg = eye of kill rogg
+Unending Breath
+Hellfire = hell fire
+Rain of Fire
+Soul Link
+Demonic Sacrifice
+Fel Domination
+Amplify Curse
+Spell Lock
+Devour Magic
+Felsteed = fel steed
+Dreadsteed = dread steed
+
+[Druid]
+Moonfire = moon fire
+Starfire = star fire
+Insect Swarm
+Entangling Roots
+Faerie Fire = fairy fire
+Mark of the Wild
+Gift of the Wild
+Rejuvenation
+Regrowth = re growth
+Healing Touch
+Tranquility
+Swiftmend = swift mend
+Innervate = enervate; inner vate
+Rebirth
+Remove Curse
+Abolish Poison
+Cure Poison
+Bear Form
+Dire Bear Form
+Cat Form
+Travel Form
+Aquatic Form
+Moonkin Form = moon kin form
+Challenging Roar
+Demoralizing Roar = demoralising roar
+Feral Charge
+Frenzied Regeneration
+Ferocious Bite
+Tiger's Fury = tigers fury
+Barkskin = bark skin
+Nature's Grasp = natures grasp
+Omen of Clarity
+Leader of the Pack
+Teleport: Moonglade = teleport moonglade
+
+[World buffs]
+Rallying Cry of the Dragonslayer = rallying cry of the dragon slayer
+Songflower Serenade = song flower serenade
+Songflower = song flower
+Warchief's Blessing = warchiefs blessing
+Spirit of Zandalar
+Fengus' Ferocity = fengus ferocity
+Mol'dar's Moxie = moldars moxie
+Slip'kik's Savvy = slipkiks savvy
+Dire Maul Tribute
+Sayge's Dark Fortune = sayges dark fortune

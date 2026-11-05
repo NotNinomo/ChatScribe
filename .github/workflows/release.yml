@@ -1,0 +1,39 @@
+name: release
+
+# Push a tag like v1.1.0 to build ChatScribe.exe and attach the zip to a GitHub release.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - run: pip install -r requirements-dev.txt
+      - run: python -m pytest tests -q
+      # --no-model: GitHub release files are limited to 2 GB, so the exe downloads the
+      # speech model (~1.6 GB) on first start instead of shipping it.
+      - run: python tools/build_exe.py --no-model --zip
+      - name: Name the zip
+        shell: pwsh
+        run: |
+          $tag = if ($env:GITHUB_REF_TYPE -eq "tag") { $env:GITHUB_REF_NAME } else { "dev" }
+          Move-Item dist/ChatScribe.zip "dist/ChatScribe-$tag-windows.zip"
+          "ZIP=dist/ChatScribe-$tag-windows.zip" | Out-File $env:GITHUB_ENV -Append
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ChatScribe-windows
+          path: ${{ env.ZIP }}
+      - uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
+        with:
+          files: ${{ env.ZIP }}
+          generate_release_notes: true

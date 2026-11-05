@@ -1,0 +1,251 @@
+# ============================================================
+# Bosses, NPCs, lore characters, factions, races, classes
+# ============================================================
+
+[Raid bosses]
+Ragnaros = rag nar os; ragnaross; rag naros
+Majordomo Executus = major domo executus; majordomo; major domo
+Lucifron = lucifer on; luci fron; lucifran
+Magmadar = magma dar; magmadore
+Gehennas = gehenna's; ge hennas; gahennas
+Garr = gar
+Baron Geddon = baron gedon; baron geddon
+Shazzrah = shazra; shaz rah; shazza
+Sulfuron Harbinger = sulfur on harbinger; sulfuron
+Golemagg = golem ag; golemag; golem agg
+Onyxia = onix ia; onyx ia; onixia; onyxia's
+Razorgore = razor gore
+Vaelastrasz = vael; vaela strasz; vela strass; vaelastraz; vale astraz; vaela straz
+Broodlord Lashlayer = broodlord lash layer; brood lord lashlayer
+Firemaw = fire maw
+Ebonroc = ebon rock; ebonrock
+Flamegor = flame gore; flamegore
+Chromaggus = chroma gus; chromagus; kroma gus; chroma gus's
+Nefarian = nefarion; nefarian's; neferian
+Lord Victor Nefarius = lord victor nefarious
+Hakkar = hakar; hackar; hak car
+Jin'do = jindo; gin doe; jin do
+High Priestess Jeklik = jeklik; jek lick
+High Priest Venoxis = venoxis; veno xis
+High Priestess Mar'li = marli; mar lee
+High Priest Thekal = thekal; theckal
+High Priestess Arlokk = arlok; ar lock
+Bloodlord Mandokir = mandokir; man do kir; mando keer
+Gahz'ranka = gahz ranka; gaz ranka
+Ossirian = osirian; ossirian the unscarred
+Kurinnaxx = kurinax; kurin ax
+General Rajaxx = rajax; ra jax
+Moam = mo am; moham
+Buru = buru the gorger; boo roo
+Ayamiss = aya miss; ayamis
+C'Thun = see thun; c thun; cthun; sea thun; kathoon; ce thun; c'thun's; sithun; si thun; sidoon; sifun; sifung; c thoon; see thoon
+The Prophet Skeram = skerum; scaram; ske ram; skeram
+Battleguard Sartura = sar tura; sartura
+Fankriss = fan kris; fankris
+Viscidus = viscidous; vissidus; viscid us; vis kid us
+Princess Huhuran = hoo hoo ran; huhuran; who who ran
+Twin Emperors = twin emps
+Vek'lor = vek lor; veklor
+Vek'nilash = vek nilash; veknilash; vek nee lash
+Ouro = oro
+Anub'Rekhan = anub rekan; anubrekhan; anub rekhan
+Grand Widow Faerlina = fair lina; faerlina; ferlina
+Maexxna = max na; maexna; mexna; maxna
+Noth the Plaguebringer = noth the plague bringer; noth
+Heigan the Unclean = higan the unclean; hey gun the unclean; heigan
+Loatheb = loath eb; lothab; loathe eb; lotheb
+Instructor Razuvious = razu vious; razuvius; razuvious
+Gothik the Harvester = gothic the harvester
+The Four Horsemen = four horsemen; 4 horsemen
+Patchwerk = patch werk
+Grobbulus = grobulus; grob bulus; grobulous
+Gluth = glooth
+Thaddius = thaddeus; thadius
+Sapphiron = sapphire on; saffiron; sapphiron's; saphiron
+Kel'Thuzad = kel thuzad; kel tuzad; kelthuzad; kel thoozad; kel'tuzad
+Lord Kazzak = kazak; lord kazak
+Azuregos = azure gos; azuregoss; azure ghost
+Ysondre = ee sondra; isondre; y sondre; ysondra
+Lethon = leth on
+Emeriss = emeris; emer is
+Taerar = tear are; terar; tay rar
+
+[Dungeon bosses]
+Edwin VanCleef = edwin van cleef; van cleef; vancleef; van cleave
+VanCleef = van cleef; vancleef
+Mutanus the Devourer = mutanus
+Archmage Arugal = arugal; aru gal
+Arugal
+Mekgineer Thermaplugg = thermaplug; therma plug; mekgineer
+Herod = herrod
+Scarlet Commander Mograine = commander mograine
+High Inquisitor Whitemane = whitemane; white mane
+Archaedas = arcadas; archeadas
+Chief Ukorz Sandscalp = ukorz; sand scalp
+Princess Theradras = theradras; thera dras
+Shade of Eranikus = eranikus; erra nikus
+Emperor Dagran Thaurissan = thaurissan; thor issan; dagran
+Princess Moira Bronzebeard = moira
+General Drakkisath = drakkisath; drakisath; drakki sath; drakis ath
+Warchief Rend Blackhand = rend blackhand; rend
+Gyth = gith
+Overlord Wyrmthalak = wyrmthalak; worm thalak
+Baron Rivendare = rivendare; riven dare; baron riven dare
+Balnazzar = balnazar; bal nazar
+Darkmaster Gandling = gandling; gand ling
+Ras Frostwhisper = ras frost whisper
+Kirtonos the Herald = kirtonos; kir tonos
+Jandice Barov = jandice; jan dice barov
+Lord Alexei Barov = barov
+Immol'thar = immolthar; immol thar
+King Gordok = gordok; gor dock
+Prince Tortheldrin = tortheldrin
+Alzzin the Wildshaper = alzzin
+Hogger = hoger; hogar
+Mankrik = man crick; mankrick; man krik
+Lord Cobrahn = cobrahn
+Mutanus
+Bazzalan = bazalan
+Lady Anacondra = anacondra
+Aku'mai = akumai; aku mai
+Charlga Razorflank = charlga
+Amnennar the Coldbringer = amnennar; am nen nar
+Gelihast = geli hast
+
+[Lore and city leaders]
+Thrall = thral
+Jaina Proudmoore = jayna proudmoore; jaina proud moore
+Proudmoore = proud moore
+Sylvanas Windrunner = silvanas windrunner; sylvanas wind runner
+Sylvanas = silvanas; sylvannas
+Windrunner = wind runner
+Cairne Bloodhoof = cairn bloodhoof; cairne blood hoof
+Vol'jin = vol jin; voljin; vol gin
+Rexxar = rexar; rex are
+Saurfang = sour fang; saur fang; sore fang
+Varok Saurfang = varok sour fang
+Eitrigg = eye trig; eitrig
+Drek'Thar = drek thar; drekthar
+Vanndar Stormpike = vandar stormpike; vanndar
+Bolvar Fordragon = bolvar for dragon; bolvar
+Fordragon = for dragon
+Highlord Bolvar Fordragon
+Lady Katrana Prestor = katrana prestor; lady prestor
+Anduin Wrynn = and win wrynn; anduin rin; anduin wren
+Varian Wrynn = varian rin; varian wren
+Anduin = and win; andwin
+Magni Bronzebeard = magni bronze beard; magnee bronzebeard
+Bronzebeard = bronze beard
+Gelbin Mekkatorque = mecca torque; mekkatorque
+Tyrande Whisperwind = tyrand whisperwind; tyrande whisper wind
+Malfurion Stormrage = malfurion storm rage; mal furion
+Malfurion = mal furion; malfurian
+Illidan Stormrage = illidan storm rage; ill a dan
+Illidan = ill a dan; illadan; ilidan
+Fandral Staghelm = fandral stag helm
+Arthas Menethil = arthus menethil; arthas
+Arthas = arthus; ar thas
+The Lich King = lich king; the lich king
+Ner'zhul = ner zul; nerzhul
+Kil'jaeden = kil jaden; kiljaeden; kil jaeden
+Archimonde = archie mond; archimond
+Sargeras = sar garas; sargerus
+Deathwing = death wing
+Neltharion = nel tharion
+Alexstrasza = alex strasza; alexstraza; alex straza
+Ysera = ee sera; ysera; isera
+Malygos = mali gos; malagos
+Nozdormu = noz dormu; nozdormu
+Elune = eloon; e loon
+Cenarius = senarius; cenarias
+Medivh = medive; meh deev; medivh
+Khadgar = khad gar; cad gar; kadgar
+Tirion Fordring = tyrion fordring; tirion for dring
+Fordring = for dring
+Uther the Lightbringer = uther the light bringer
+Uther
+Ashbringer = ash bringer
+Darion Mograine = darion mo grain
+Mograine = mo grain; mograin
+Varimathras = vari mathras; varimathris
+Lor'themar Theron = lor themar; lorthemar
+Kael'thas Sunstrider = kael thas; kaelthas; kel thas
+Garrosh Hellscream = garrosh hell scream
+Grom Hellscream = grom hell scream
+Hellscream = hell scream
+Durotan = duro tan
+Orgrim Doomhammer = orgrim doom hammer
+Doomhammer = doom hammer
+Gul'dan = gul dan; guldan
+Mannoroth = mano roth; manoroth
+Prince Thunderaan = thunderaan; thunder an
+Nat Pagle = nat paigle
+Hemet Nesingwary = nesingwary; nessing wary
+Anachronos = ana chronos
+Mankrik's wife
+Bangalash = banga lash
+Kurzen = kur zen
+
+[Factions and reputation]
+Alliance
+Horde
+Argent Dawn
+Thorium Brotherhood
+Timbermaw Hold = timber maw hold
+Timbermaw = timber maw
+Cenarion Circle = senarion circle; cenarian circle
+Hydraxian Waterlords = hydraxian water lords; hydraxian
+Brood of Nozdormu
+Zandalar Tribe
+Darkmoon Faire = darkmoon fair; dark moon faire; dark moon fair
+Stormpike Guard = storm pike guard
+Frostwolf Clan = frost wolf clan
+Silverwing Sentinels = silver wing sentinels
+Warsong Outriders = war song outriders
+League of Arathor
+The Defilers
+Bloodsail Buccaneers = blood sail buccaneers
+Steamwheedle Cartel = steam wheedle cartel
+Ravenholdt = raven holt; ravenholt
+Wintersaber Trainers = winter saber trainers
+Gelkis Clan
+Magram Clan
+Shen'dralar = shen dralar
+Scarlet Crusade
+Argent Crusade
+Cult of the Damned
+Burning Legion
+Scourge
+Kirin Tor = kiran tor; kirin tor
+Earthen Ring
+Dark Iron = dark iron dwarves
+Defias Brotherhood = defias; de fias
+
+[Races]
+Human
+Dwarf
+Night Elf = nightelf
+Gnome
+Orc
+Undead
+Forsaken
+Tauren = tauran; taurens
+Troll
+Blood Elf = bloodelf
+Draenei = draenai; drenai; dranei
+High Elf = highelf
+Goblin
+Worgen = worgan
+
+[Classes]
+Warrior
+Paladin = paladan; palladin
+Hunter
+Rogue = rouge
+Priest
+Shaman = shamon; shamman
+Mage
+Warlock = war lock
+Druid
+Death Knight
+Moonkin = moon kin

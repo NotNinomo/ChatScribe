@@ -1,0 +1,18 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  text-pipeline:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      # The text pipeline doesn't need Whisper or CUDA - keep CI fast.
+      - run: pip install numpy==2.2.6 rapidfuzz==3.14.5 wordfreq==3.1.1 pytest pyflakes
+      - run: python -m pyflakes chatscribe tests tools
+      - run: python -m pytest tests -q
