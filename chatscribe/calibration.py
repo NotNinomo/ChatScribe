@@ -64,24 +64,34 @@ def measure_levels(recorder, seconds: float, on_tick=None) -> list[float]:
 
 
 def compute_levels(noise_levels: list[float], speech_levels: list[float],
-                   current_gain: float) -> LevelResult:
+                   current_gain: float = 1.0) -> LevelResult:
+    """Levels come from the recorder BEFORE gain, so the new gain is absolute -
+    it never stacks on a previous calibration (that used to make re-calibrating
+    a loud/noisy mic push the gate far above the voice)."""
     r = LevelResult()
-    g_db = 20 * np.log10(max(current_gain, 1e-6))
     n = np.array(noise_levels) if noise_levels else np.array([-70.0])
     s = np.array(speech_levels) if speech_levels else np.array([-30.0])
-    noise = float(np.percentile(n, 90))
+    # Median-ish noise: a cough or keyboard click during the silence step must not count.
+    noise = float(np.percentile(n, 60))
     voiced = s[s > noise + 6]
-    speech = float(np.percentile(voiced, 75)) if voiced.size > 10 else float(np.percentile(s, 90))
+    if voiced.size > 15:
+        speech = float(np.percentile(voiced, 75))
+    else:
+        speech = float(np.percentile(s, 90))   # barely above the noise: best effort
     # Aim the speaking level at about -24 dBFS after gain; never more than +18 dB.
     want_gain_db = float(np.clip(-24 - speech, -12, 18))
-    r.gain = round(10 ** ((g_db + want_gain_db) / 20), 2)
+    r.gain = round(10 ** (want_gain_db / 20), 2)
     r.noise_db = round(noise + want_gain_db, 1)
     r.speech_db = round(speech + want_gain_db, 1)
     gap = r.speech_db - r.noise_db
-    r.gate_db = round(r.noise_db + max(6.0, 0.35 * gap), 1)
+    gate = r.noise_db + max(4.0, 0.35 * gap)
+    # The gate must stay well under the voice, whatever the noise did.
+    gate = min(gate, r.speech_db - 12.0, -30.0)
+    r.gate_db = round(max(gate, -72.0), 1)
     if gap < 10:
-        r.verdict = ("Your voice is barely louder than the background. Move the mic closer, "
-                     "lower noise, or check that the right microphone is selected.")
+        r.verdict = ("Noisy mic: your voice is barely louder than the background. It will still "
+                     "work (ChatScribe's speech detector handles noise), but moving the mic closer "
+                     "or turning on your mic's noise suppression will improve accuracy.")
     elif gap < 20:
         r.verdict = "OK, but noisy. Recognition should work; a closer mic will help."
     else:

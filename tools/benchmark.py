@@ -91,10 +91,11 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--no-prompt", action="store_true")
     ap.add_argument("--noise", type=float, default=0.004, help="white noise added (mic hiss)")
+    ap.add_argument("--gate", type=float, default=-50.0, help="silence gate dB (try -20 = too high)")
     args = ap.parse_args()
 
     cfg = Config()          # fixed defaults - never the user's own style/keys
-    cfg.gain, cfg.gate_db = 1.0, -50.0
+    cfg.gain, cfg.gate_db = 1.0, args.gate
     app = ChatScribe(cfg)
     app.engine.load(print)
     vs = voices()
@@ -111,6 +112,8 @@ def main() -> None:
             audio = load_wav(wav) * 0.5
             audio = audio + rng.normal(0, args.noise, audio.shape).astype(np.float32)
             clean, info = prepare(audio, cfg.gain, cfg.gate_db)
+            if info["too_quiet"]:
+                print(f"DROP  gate discarded the clip: {spoken}")
             prompt = None if args.no_prompt else app.build_prompt()
             tr = app.engine.transcribe(clean, prompt=prompt)
             times.append(tr.seconds)

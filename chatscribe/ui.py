@@ -421,11 +421,12 @@ class SettingsWindow:
         self.main = main
         self.app = main.app
         cfg = self.app.cfg
+        self._orig_gate = cfg.gate_db
         w = self.win = tk.Toplevel(main.root)
         w.title("ChatScribe settings")
         w.configure(bg=BG)
         w.attributes("-topmost", True)
-        w.geometry("520x690")
+        w.geometry("540x790")
         outer = ttk.Frame(w, padding=14)
         outer.pack(fill="both", expand=True)
 
@@ -438,6 +439,21 @@ class SettingsWindow:
         self.mic = ttk.Combobox(outer, values=devices, state="readonly", width=60)
         self.mic.set(cfg.input_device or "(Windows default)")
         self.mic.pack(anchor="w")
+        # Silence gate: where quiet becomes "silence" (the dashed line on the mic meter).
+        gate_row = ttk.Frame(outer)
+        gate_row.pack(fill="x", pady=(6, 0))
+        ttk.Label(gate_row, text="Silence gate:").pack(side="left")
+        self.gate = tk.DoubleVar(value=max(-75.0, min(-20.0, cfg.gate_db)))
+        self.gate_lbl = ttk.Label(gate_row, width=8)
+        tk.Scale(gate_row, from_=-75, to=-20, resolution=1, orient="horizontal",
+                 variable=self.gate, showvalue=False, length=260, bg=BG, fg=TEXT,
+                 troughcolor=PANEL, highlightthickness=0, activebackground=GOLD_DIM,
+                 command=lambda v: self._gate_changed()).pack(side="left", padx=6)
+        self.gate_lbl.pack(side="left")
+        ttk.Label(outer, text="Left = picks up quieter speech. Move it right only if background "
+                  "noise gets typed as words. Calibrate sets this for you.",
+                  style="Muted.TLabel", wraplength=480).pack(anchor="w")
+        self._gate_changed()
 
         # --- keys
         section("Push-to-talk keys")
@@ -501,8 +517,14 @@ class SettingsWindow:
         b = ttk.Frame(outer)
         b.pack(fill="x", side="bottom", pady=(12, 0))
         ttk.Button(b, text="Save", command=self.save).pack(side="right")
-        ttk.Button(b, text="Cancel", command=w.destroy).pack(side="right", padx=6)
+        ttk.Button(b, text="Cancel", command=self.cancel).pack(side="right", padx=6)
+        w.protocol("WM_DELETE_WINDOW", self.cancel)
         w.bind("<Destroy>", lambda e: e.widget is w and self.app.hotkeys.cancel_capture())
+
+    def _gate_changed(self) -> None:
+        v = self.gate.get()
+        self.gate_lbl.configure(text=f"{v:.0f} dB")
+        self.app.cfg.gate_db = v          # live: the main window's dashed line follows
 
     def _draw_bindings(self) -> None:
         for c in self.bind_frame.winfo_children():
@@ -555,6 +577,10 @@ class SettingsWindow:
         del self.bindings[i]
         self._draw_bindings()
 
+    def cancel(self) -> None:
+        self.app.cfg.gate_db = self._orig_gate
+        self.win.destroy()
+
     def save(self) -> None:
         cfg = self.app.cfg
         mic = self.mic.get()
@@ -563,6 +589,7 @@ class SettingsWindow:
         model = self.model.get().split(" - ")[0]
         model_changed = model != cfg.model
         cfg.input_device = mic
+        cfg.gate_db = float(self.gate.get())
         cfg.bindings = self.bindings
         cfg.mode = self.mode.get()
         cfg.suppress_hotkey = self.suppress.get()

@@ -14,6 +14,8 @@ log = logging.getLogger(__name__)
 
 TARGET_SR = 16000
 BLOCK_MS = 20
+ABS_SILENCE_DB = -58.0      # loudest part of an utterance below this (after gain) = silence
+GATE_BELOW_SPEECH_DB = 14.0 # trimming gate is always at least this far below the speech
 
 
 def db(x: np.ndarray) -> float:
@@ -192,9 +194,22 @@ def prepare(audio: np.ndarray, gain: float, gate_db: float) -> tuple[np.ndarray,
         info["too_quiet"] = True
         return x, info
     levels = np.array([db(x[i * frame:(i + 1) * frame]) for i in range(n)])
-    loud = np.where(levels > gate_db)[0]
+    loudest = float(np.percentile(levels, 95))
+    info["loudest_db"] = round(loudest, 1)
+    # Only an utterance that is quiet in ABSOLUTE terms counts as "nothing said". Whether it
+    # is speech or just noise is decided by Whisper's own speech detector (Silero VAD),
+    # which copes with noisy mics far better than a loudness threshold.
+    if loudest < ABS_SILENCE_DB:
+        info["too_quiet"] = True
+        return x, info
+    # The calibrated gate only TRIMS silence. It can never sit above this utterance's own
+    # speech level, so a gate calibrated too high (noisy mic, noise spike during calibration,
+    # someone else's settings) can't throw speech away.
+    gate = min(gate_db, loudest - GATE_BELOW_SPEECH_DB)
+    info["gate_used_db"] = round(gate, 1)
+    loud = np.where(levels > gate)[0]
     info["speech_ms"] = int(len(loud) * BLOCK_MS)
-    if len(loud) < 3:                           # < 60 ms above the gate: nothing said
+    if len(loud) < 3:                           # < 60 ms of anything: a click, not speech
         info["too_quiet"] = True
         return x, info
     pad = int(250 / BLOCK_MS)
