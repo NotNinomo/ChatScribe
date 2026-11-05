@@ -13,6 +13,6 @@ jobs:
         with:
           python-version: "3.10"
       # The text pipeline doesn't need Whisper or CUDA - keep CI fast.
-      - run: pip install numpy==2.2.6 rapidfuzz==3.14.5 wordfreq==3.1.1 pytest pyflakes
+      - run: pip install numpy==2.2.6 rapidfuzz==3.14.5 wordfreq==3.1.1 sounddevice==0.5.6 pytest pyflakes
       - run: python -m pyflakes chatscribe tests tools
       - run: python -m pytest tests -q
