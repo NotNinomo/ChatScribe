@@ -42,7 +42,8 @@ SMALL = ("Segoe UI", 9)
 STATE_COLOR = {"loading": GOLD_DIM, "ready": GREEN, "listening": RED, "thinking": BLUE,
                "sent": GREEN, "error": RED}
 
-PREFIX_CHOICES = [("Chat box (whatever channel is open)", ""), ("Say", "/s "), ("Party", "/p "),
+PREFIX_CHOICES = [("Chat box (whatever channel is open)", ""), ("Say", "/s "),
+                  ("Emote (/me)", "/me "), ("Party", "/p "),
                   ("Raid", "/raid "), ("Guild", "/g "), ("Officer", "/o "), ("Yell", "/y "),
                   ("Reply to last whisper", "/r "), ("Instance / BG", "/i "),
                   ("Raid warning", "/rw "), ("Trade (/2)", "/2 "), ("General (/1)", "/1 ")]
@@ -241,7 +242,7 @@ class MainWindow:
 
         hist = ttk.Frame(r, padding=(14, 8, 14, 4))
         hist.pack(fill="both", expand=True)
-        ttk.Label(hist, text="History  (double-click: copy - right-click: fix a word)",
+        ttk.Label(hist, text="History  (double-click: copy - right-click: fix / undo a fix)",
                   style="Sub.TLabel").pack(anchor="w")
         self.hist = tk.Listbox(hist, bg=PANEL, fg=TEXT, selectbackground=EDGE,
                                selectforeground=GOLD, font=BODY, borderwidth=0,
@@ -254,8 +255,7 @@ class MainWindow:
         foot.pack(fill="x")
         self.foot = ttk.Label(foot, text="", style="Muted.TLabel")
         self.foot.pack(side="left")
-        ttk.Button(foot, text="Word lists", command=lambda: os.startfile(LEXICON_DIR)).pack(
-            side="right")
+        ttk.Button(foot, text="My words", command=self.open_my_words).pack(side="right")
         self.update_btn = ttk.Button(foot, text="Updates", command=self.check_updates)
         self.update_btn.pack(side="right", padx=6)
         self.update_info = None
@@ -351,8 +351,12 @@ class MainWindow:
         self.hist.selection_set(idx)
         menu = tk.Menu(self.root, tearoff=0, bg=PANEL, fg=TEXT, activebackground=EDGE,
                        activeforeground=GOLD)
+        res = self.history[idx]
         menu.add_command(label="Fix a word in this message...",
-                         command=lambda: self.teach_dialog(self.history[idx].raw))
+                         command=lambda: self.teach_dialog(res.raw))
+        if _changed(res):
+            menu.add_command(label="Undo a correction in this message...",
+                             command=lambda: UndoDialog(self, res))
         menu.add_command(label="Copy", command=self._copy_selected)
         menu.tk_popup(e.x_root, e.y_root)
 
@@ -363,6 +367,9 @@ class MainWindow:
 
     def teach_dialog(self, heard: str = "") -> None:
         TeachDialog(self.root, self.app, heard)
+
+    def open_my_words(self) -> None:
+        MyWordsWindow(self)
 
     def open_settings(self) -> None:
         SettingsWindow(self)
@@ -459,6 +466,145 @@ class TeachDialog:
         else:
             messagebox.showinfo("ChatScribe", "That one can't be learned (too common a phrase, "
                                 "or it's already the same).", parent=self.win)
+
+
+def _changed(res) -> list:
+    """Corrections that actually changed the text (not just name casing kept as-is)."""
+    seen, out = set(), []
+    for r in res.line.replacements:
+        if r.original != r.new and r.original.lower() not in seen:
+            seen.add(r.original.lower())
+            out.append(r)
+    return out
+
+
+class UndoDialog:
+    """'ChatScribe changed X to Y - I didn't want that': turns the correction off for good."""
+
+    def __init__(self, main, res):
+        self.main, self.app = main, main.app
+        w = self.win = tk.Toplevel(main.root)
+        w.title("Undo a correction")
+        w.configure(bg=BG)
+        w.attributes("-topmost", True)
+        w.resizable(False, False)
+        f = ttk.Frame(w, padding=14)
+        f.pack(fill="both")
+        ttk.Label(f, text="Undo a correction", style="Sub.TLabel").pack(anchor="w")
+        ttk.Label(f, text=f"It heard: {res.raw}", style="Muted.TLabel", wraplength=420).pack(
+            anchor="w", pady=(2, 8))
+        ttk.Label(f, text="Tick what ChatScribe should leave alone from now on:").pack(anchor="w")
+        changed = _changed(res)
+        self.vars = []
+        for r in changed:
+            v = tk.BooleanVar(value=len(changed) == 1)
+            ttk.Checkbutton(f, variable=v,
+                            text=f"Keep “{r.original}”   (don't change it to "
+                                 f"“{r.new}”)").pack(anchor="w", pady=1)
+            self.vars.append((v, r))
+        ttk.Label(f, text="You can turn it back on any time in My words.",
+                  style="Muted.TLabel").pack(anchor="w", pady=(8, 0))
+        b = ttk.Frame(f)
+        b.pack(fill="x", pady=(10, 0))
+        ttk.Button(b, text="Turn off", command=self.apply).pack(side="right")
+        ttk.Button(b, text="Cancel", command=w.destroy).pack(side="right", padx=6)
+
+    def apply(self) -> None:
+        done = [r.original for v, r in self.vars
+                if v.get() and self.app.lexicon.block(r.original)]
+        self.win.destroy()
+        if done:
+            self.main.status.configure(text="Won't correct: " + ", ".join(done))
+
+
+class MyWordsWindow:
+    """Everything the user changed: words they taught, corrections they turned off."""
+
+    def __init__(self, main):
+        self.main, self.app = main, main.app
+        self.lex = self.app.lexicon
+        w = self.win = tk.Toplevel(main.root)
+        w.title("My words")
+        w.configure(bg=BG)
+        w.attributes("-topmost", True)
+        w.geometry("560x640")
+        f = ttk.Frame(w, padding=14)
+        f.pack(fill="both", expand=True)
+
+        ttk.Label(f, text="Words I taught", style="Sub.TLabel").pack(anchor="w")
+        ttk.Label(f, text="From calibration and “Fix a word”: what it heard "
+                  "→ what it writes.", style="Muted.TLabel").pack(anchor="w")
+        self.taught = self._listbox(f)
+        row = ttk.Frame(f)
+        row.pack(fill="x", pady=(4, 10))
+        ttk.Button(row, text="Remove", command=self.remove_taught).pack(side="left")
+        ttk.Button(row, text="Teach a new word...", command=self.teach).pack(side="left", padx=6)
+
+        ttk.Label(f, text="Corrections I turned off", style="Sub.TLabel").pack(anchor="w")
+        ttk.Label(f, text="ChatScribe writes these exactly as you say them.",
+                  style="Muted.TLabel").pack(anchor="w")
+        self.blocked = self._listbox(f)
+        row2 = ttk.Frame(f)
+        row2.pack(fill="x", pady=(4, 0))
+        ttk.Button(row2, text="Turn back on", command=self.unblock).pack(side="left")
+        add = ttk.Frame(f)
+        add.pack(fill="x", pady=(8, 0))
+        ttk.Label(add, text="Stop correcting:").pack(side="left")
+        self.entry = tk.Entry(add, width=26, bg=PANEL, fg=TEXT, insertbackground=GOLD)
+        self.entry.pack(side="left", padx=6)
+        self.entry.bind("<Return>", lambda e: self.block_typed())
+        ttk.Button(add, text="Add", command=self.block_typed).pack(side="left")
+
+        foot = ttk.Frame(f)
+        foot.pack(fill="x", side="bottom", pady=(12, 0))
+        ttk.Button(foot, text="Close", command=w.destroy).pack(side="right")
+        ttk.Button(foot, text="Open word list files",
+                   command=lambda: os.startfile(LEXICON_DIR)).pack(side="left")
+        self.win.bind("<FocusIn>", lambda e: e.widget is self.win and self.refresh())
+        self.refresh()
+
+    def _listbox(self, parent):
+        lb = tk.Listbox(parent, height=7, bg=PANEL, fg=TEXT, selectbackground=EDGE,
+                        selectforeground=GOLD, font=BODY, borderwidth=0, highlightthickness=1,
+                        highlightbackground=EDGE, activestyle="none")
+        lb.pack(fill="both", expand=True, pady=(4, 0))
+        return lb
+
+    def teach(self) -> None:
+        TeachDialog(self.win, self.app)
+
+    def refresh(self) -> None:
+        self._taught_keys = sorted(self.lex.learned)
+        self.taught.delete(0, "end")
+        for k in self._taught_keys:
+            self.taught.insert("end", f"  {k}  →  {self.lex.learned[k]}")
+        if not self._taught_keys:
+            self.taught.insert("end", "  (nothing yet)")
+        self._blocked_keys = sorted(self.lex.blocked)
+        self.blocked.delete(0, "end")
+        for k in self._blocked_keys:
+            self.blocked.insert("end", f"  {k}")
+        if not self._blocked_keys:
+            self.blocked.insert("end", "  (nothing yet - right-click a message in History "
+                                       "and pick “Undo a correction”)")
+
+    def remove_taught(self) -> None:
+        sel = self.taught.curselection()
+        if sel and sel[0] < len(self._taught_keys):
+            self.lex.forget(self._taught_keys[sel[0]])
+            self.refresh()
+
+    def unblock(self) -> None:
+        sel = self.blocked.curselection()
+        if sel and sel[0] < len(self._blocked_keys):
+            self.lex.unblock(self._blocked_keys[sel[0]])
+            self.refresh()
+
+    def block_typed(self) -> None:
+        word = self.entry.get().strip()
+        if word and self.lex.block(word):
+            self.entry.delete(0, "end")
+            self.refresh()
 
 
 class SettingsWindow:

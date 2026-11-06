@@ -4,7 +4,7 @@ import os
 import sys
 from pathlib import Path
 
-__version__ = "1.2.1"
+__version__ = "1.3.0"
 
 FROZEN = getattr(sys, "frozen", False)
 # Packaged exe: user files (config, word lists, models, data) live next to ChatScribe.exe.

@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.3.0
+- **Undo a correction:** right-click a message in History -> "Undo a correction..." and tick
+  what ChatScribe should leave alone. It never changes those words again.
+- **My words** window (replaces "Word lists"): see and remove words you taught, see and turn
+  back on corrections you turned off, or type a word to stop correcting.
+- **Emote (/me) key:** pick "Emote (/me)" as a push-to-talk key's channel; the line is sent
+  as /me and written emote-style ("waves at you").
+- Fix: "Fix a word" refused ordinary phrases like "bad blood" as "too common".
+
 ## 1.2.1
 - Saying a normal word no longer turns it into a WoW abbreviation: "bow", "hot", "dot",
   "cod", "cos", "los", "ah", "mm" stay words. Spell it out ("b o w") to get BoW / HoT.

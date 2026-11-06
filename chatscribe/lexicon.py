@@ -17,6 +17,7 @@ from .phonetics import norm
 
 log = logging.getLogger(__name__)
 LEARNED_PATH = DATA_DIR / "learned_aliases.json"
+BLOCKED_PATH = DATA_DIR / "blocked_corrections.json"   # phrases never to correct
 
 # A word this common in English is never "corrected" into a WoW name by sound.
 COMMON_ZIPF = 3.6
@@ -79,6 +80,7 @@ class Lexicon:
         self.fuzzy_canon: list[str] = []
         self.canonical_words: set[str] = set()
         self.learned: dict[str, str] = {}
+        self.blocked: set[str] = set()
         self.reload()
 
     # ----------------------------------------------------------- loading
@@ -103,6 +105,12 @@ class Lexicon:
                 log.error("learned_aliases.json unreadable: %s", e)
         for alias, canon in self.learned.items():
             self._add_exact(alias, canon, False, "alias", override=True)
+        self.blocked = set()
+        if BLOCKED_PATH.exists():
+            try:
+                self.blocked = {norm(x) for x in json.loads(BLOCKED_PATH.read_text(encoding="utf-8"))}
+            except Exception as e:
+                log.error("blocked_corrections.json unreadable: %s", e)
         self._build_fuzzy_index()
         log.info("Lexicon: %d entries, %d exact forms, %d sound-matchable",
                  len(self.entries), len(self.exact), len(self.fuzzy_keys))
@@ -170,13 +178,53 @@ class Lexicon:
         k = norm(heard)
         if not k or k == norm(canonical):
             return False
-        if all(zipf(w) >= 5.0 for w in k.split()):
-            return False  # never learn "the", "and you" etc.
+        if all(zipf(w) >= 6.0 for w in k.split()):
+            return False  # never learn pure filler: "the", "and you", "it is"...
         self.learned[k] = canonical
+        self._save_learned()
+        self._add_exact(k, canonical, False, "alias", override=True)
+        if k in self.blocked:                 # teaching it again turns it back on
+            self.unblock(k)
+        return True
+
+    def forget(self, heard: str) -> bool:
+        """Remove a word the user taught (calibration or "Fix a word")."""
+        k = norm(heard)
+        if k not in self.learned:
+            return False
+        del self.learned[k]
+        self._save_learned()
+        self.reload()                         # rebuild so the built-in meaning (if any) returns
+        return True
+
+    def block(self, phrase: str) -> bool:
+        """Never correct this phrase again ("bow" stays "bow"). Also forgets it if taught."""
+        k = norm(phrase)
+        if not k:
+            return False
+        if k in self.learned:
+            del self.learned[k]
+            self._save_learned()
+            self.reload()
+        self.blocked.add(k)
+        self._save_blocked()
+        return True
+
+    def unblock(self, phrase: str) -> bool:
+        k = norm(phrase)
+        if k not in self.blocked:
+            return False
+        self.blocked.discard(k)
+        self._save_blocked()
+        return True
+
+    def _save_learned(self) -> None:
         LEARNED_PATH.write_text(json.dumps(self.learned, indent=2, ensure_ascii=False),
                                 encoding="utf-8")
-        self._add_exact(k, canonical, False, "alias", override=True)
-        return True
+
+    def _save_blocked(self) -> None:
+        BLOCKED_PATH.write_text(json.dumps(sorted(self.blocked), indent=2, ensure_ascii=False),
+                                encoding="utf-8")
 
     # --------------------------------------------------------- prompts
     def prompt_terms(self, limit_chars: int = 420) -> list[str]:
@@ -203,6 +251,7 @@ class Lexicon:
         n_tok = len(tokens)
         while i < n_tok:
             hit = None
+            skip = 0
             # Longest window first; at each size try exact/alias, then sound-alike.
             for n in range(min(self.max_words, n_tok - i), 0, -1):
                 exact_ok = _joinable(text, tokens, i, n, allow_comma=True)
@@ -213,6 +262,15 @@ class Lexicon:
                 hit = self._exact_hit(original, span)
                 if not hit and enable_fuzzy and n <= 4 and _joinable(text, tokens, i, n):
                     hit = self._fuzzy_hit(original, span)
+                if hit and hit[0].new != hit[0].original and self.blocked:
+                    k = norm(original)
+                    if k in self.blocked:
+                        hit, skip = None, n   # turned off by the user: leave the whole phrase
+                        break
+                    padded = f" {k} "
+                    if any(f" {b} " in padded for b in self.blocked):
+                        hit = None            # contains a turned-off word: try smaller windows
+                        continue
                 if hit:
                     break
             if hit:
@@ -220,7 +278,7 @@ class Lexicon:
                 reps.append(rep)        # unchanged hits too: they protect the name's casing
                 i += n
             else:
-                i += 1
+                i += max(1, skip)
         out = text
         for r in sorted(reps, key=lambda r: r.start, reverse=True):
             out = out[:r.start] + r.new + out[r.end:]

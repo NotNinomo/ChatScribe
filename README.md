@@ -46,7 +46,7 @@ Normal dictation tools like Windows voice typing mangle Azeroth: you get "on kir
   - "Safiran" → `Sapphiron`
   - "the barons" → `the Barrens`
 - **Leaves normal English alone.** "I fear the alliance will win" stays exactly as you said it.
-- **Learns your voice.** A 2-minute calibration has you read WoW lines and remembers how *your* voice gets misheard. You can also right-click any message and choose **Fix a word** to teach it a correction.
+- **Learns your voice.** A 2-minute calibration has you read WoW lines and remembers how *your* voice gets misheard. You can also right-click any message and choose **Fix a word** to teach it a correction, or **Undo a correction** if it changed something you didn't want changed. **My words** shows everything you've taught or turned off.
 - **Real chat punctuation.** It adds question marks on its own and handles spoken punctuation ("question mark", "smiley face" → `:)`). It removes um and uh and writes chat-style numbers ("level sixty" → `level 60`). Messages longer than 255 characters are split automatically.
 - **Voice channel commands:**
 
@@ -61,7 +61,7 @@ Normal dictation tools like Windows voice typing mangle Azeroth: you get "on kir
   | "… scratch that" | *(nothing is sent)* |
 
   A channel only switches on a deliberate command. "Party is ready" and "in the raid tonight…" stay normal chat.
-- **Several push-to-talk keys.** Keyboard keys and mouse side buttons both work, and each key can have its own channel (for example, Mouse 5 → Party).
+- **Several push-to-talk keys.** Keyboard keys and mouse side buttons both work, and each key can have its own channel (for example, Mouse 5 → Party, or a key just for **/me emotes**).
 - **Fits the game.** A dark, gold-trimmed window in the style of the classic UI, plus an optional click-through "Listening" badge.
 
 ## Download

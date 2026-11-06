@@ -165,7 +165,9 @@ class ChatScribe:
         prompt = self.build_prompt()
         tr = self.engine.transcribe(clean, prompt=prompt)
         t1 = time.perf_counter()
-        line = self.formatter.process(tr.text) if tr.text else ChatLine(cancelled=True)
+        binding = self.cfg.bindings[idx] if idx < len(self.cfg.bindings) else {}
+        line = (self.formatter.process(tr.text, binding.get("prefix", "")) if tr.text
+                else ChatLine(cancelled=True))
         if self.capture_hook:
             self.capture_hook(tr.text, line)
             self.emit("status", "ready", self.ready_text())
@@ -177,7 +179,6 @@ class ChatScribe:
             self.emit("result", Result(tr.text, line, [], "cancelled", {}, idx))
             self.emit("status", "ready", "Cancelled - " + self.ready_text())
             return
-        binding = self.cfg.bindings[idx] if idx < len(self.cfg.bindings) else {}
         if not line.prefix and binding.get("prefix"):
             line.prefix = binding["prefix"]
             line.route_label = binding.get("label", "")

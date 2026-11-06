@@ -12,6 +12,7 @@ from dataclasses import dataclass, field
 from .lexicon import Lexicon, _collapse_dotted_acronyms, zipf
 
 CHAT_LIMIT = 255
+EMOTE_PREFIXES = ("/e ", "/me ", "/em ", "/emote ")
 
 
 @dataclass
@@ -402,7 +403,9 @@ class Formatter:
         self.lexicon = lexicon
         self.cfg = cfg
 
-    def process(self, raw: str) -> ChatLine:
+    def process(self, raw: str, default_prefix: str = "") -> ChatLine:
+        """default_prefix: the push-to-talk key's channel (e.g. "/me "), used for
+        formatting when no channel was spoken."""
         cfg = self.cfg
         self.lexicon.shorthand = cfg.shorthand
         text = tidy_spacing(_collapse_dotted_acronyms(raw))
@@ -420,7 +423,7 @@ class Formatter:
         protected = {w.lower() for r in reps for w in r.new.split()}
         if line.slash:
             body = body.rstrip(".")
-        elif line.prefix.startswith("/e "):
+        elif (line.prefix or default_prefix).startswith(EMOTE_PREFIXES):
             # Emotes read "Name waves" - keep them lowercase, no trailing stop.
             body = _decapitalize_first(tidy_spacing(body), protected).rstrip(".")
         else:
