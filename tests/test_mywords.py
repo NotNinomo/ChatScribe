@@ -89,3 +89,29 @@ def test_me_key_keeps_names_capitalised(fmt):
 
 def test_normal_key_unchanged(fmt):
     assert say(fmt, "waves at the crowd.") == ["Waves at the crowd"]
+
+
+# --------------------------------------------------------- auto question marks off
+@pytest.fixture
+def noq(fmt):
+    fmt.cfg.auto_question_marks = False
+    return fmt
+
+
+def test_auto_question_marks_on_by_default(fmt):
+    assert say(fmt, "anyone want to run deadmines") == ["Anyone want to run Deadmines?"]
+
+
+def test_no_auto_question_mark(noq):
+    assert say(noq, "anyone want to run deadmines") == ["Anyone want to run Deadmines"]
+    # Whisper's own "?" is dropped too
+    assert say(noq, "Anyone want to run Deadmines?") == ["Anyone want to run Deadmines"]
+    assert say(noq, "Is he there? I need a heal.") == ["Is he there. I need a heal"]
+    assert say(noq, "Really?!") == ["Really!"]
+
+
+def test_spoken_question_mark_still_works(noq):
+    assert say(noq, "anyone want to run deadmines question mark") == [
+        "Anyone want to run Deadmines?"]
+    assert say(noq, "Anyone want to run Deadmines? Question mark.") == [
+        "Anyone want to run Deadmines?"]

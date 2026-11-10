@@ -47,7 +47,7 @@ Normal dictation tools like Windows voice typing mangle Azeroth: you get "on kir
   - "the barons" → `the Barrens`
 - **Leaves normal English alone.** "I fear the alliance will win" stays exactly as you said it.
 - **Learns your voice.** A 2-minute calibration has you read WoW lines and remembers how *your* voice gets misheard. You can also right-click any message and choose **Fix a word** to teach it a correction, or **Undo a correction** if it changed something you didn't want changed. **My words** shows everything you've taught or turned off.
-- **Real chat punctuation.** It adds question marks on its own and handles spoken punctuation ("question mark", "smiley face" → `:)`). It removes um and uh and writes chat-style numbers ("level sixty" → `level 60`). Messages longer than 255 characters are split automatically.
+- **Real chat punctuation.** It adds question marks on its own (or only when you say "question mark", if you prefer) and handles spoken punctuation ("question mark", "smiley face" → `:)`). It removes um and uh and writes chat-style numbers ("level sixty" → `level 60`). Messages longer than 255 characters are split automatically.
 - **Voice channel commands:**
 
   | Say | Sends |

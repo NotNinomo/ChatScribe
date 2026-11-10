@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.1
+- New setting: **Add question marks automatically**. Turn it off and lines only get a
+  "?" when you say "question mark" out loud.
+
 ## 1.3.0
 - **Undo a correction:** right-click a message in History -> "Undo a correction..." and tick
   what ChatScribe should leave alone. It never changes those words again.

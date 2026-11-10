@@ -238,6 +238,7 @@ def tidy_spacing(text: str) -> str:
     text = re.sub(r"(?<![.])([.!?])(?=[A-Za-z])", r"\1 ", text)
     text = re.sub(r",\s*([.!?])", r"\1", text)
     text = re.sub(r"([!?])\.+", r"\1", text)
+    text = re.sub(r"(?<!\.)\.(?=[!?])", "", text)   # "Deadmines.?" -> "Deadmines?"
     text = re.sub(r"\?{2,}", "?", text)     # spoken "question mark" after Whisper's own "?"
     text = re.sub(r"\.{4,}", "...", text)
     text = re.sub(r"(?<!\.)\.\.(?!\.)", ".", text)
@@ -345,12 +346,19 @@ def fix_stray_capitals(text: str, protected: set) -> str:
     return re.sub(r"((?<![.!?])(?<![.!?]\s)(?<=[a-z0-9,;:]\s))([A-Z][a-z]+)\b(?!['\-]\w)", rep, text)
 
 
-def apply_style(text: str, style: str, protected: set) -> str:
+def drop_heard_question_marks(text: str) -> str:
+    """Remove the "?" Whisper adds on its own (before spoken punctuation runs)."""
+    text = re.sub(r"\?+(?=\s*!)", "", text)          # "really?!" -> "really!"
+    return re.sub(r"\?+", ".", text)                   # keeps the sentence break
+
+
+def apply_style(text: str, style: str, protected: set, auto_questions: bool = True) -> str:
     if not text:
         return text
     text = fix_stray_capitals(text, protected)
     text = _fix_i(text)
-    text = _add_question_marks(text)
+    if auto_questions:
+        text = _add_question_marks(text)
     text = _capitalize_sentences(text)
     if style == "proper":
         if text[-1] not in ".!?)" and not re.search(r"[:;]-?[)(DPp]$|<3$|xD$|o7$", text):
@@ -415,6 +423,9 @@ class Formatter:
         if line.cancelled:
             return line
         body = line.text
+        auto_q = getattr(cfg, "auto_question_marks", True)
+        if not auto_q:
+            body = drop_heard_question_marks(body)
         if cfg.spoken_punctuation:
             body = apply_spoken_punctuation(body)
         body = numbers_to_digits(tidy_spacing(body))
@@ -427,6 +438,6 @@ class Formatter:
             # Emotes read "Name waves" - keep them lowercase, no trailing stop.
             body = _decapitalize_first(tidy_spacing(body), protected).rstrip(".")
         else:
-            body = apply_style(tidy_spacing(body), cfg.style, protected)
+            body = apply_style(tidy_spacing(body), cfg.style, protected, auto_q)
         line.text = wow_safe(body)
         return line

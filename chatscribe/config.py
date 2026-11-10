@@ -46,6 +46,7 @@ class Config:
     # --- text
     style: str = "natural"              # proper | natural | casual
     spoken_punctuation: bool = True     # "question mark", "comma", "smiley face" ...
+    auto_question_marks: bool = True    # off: "?" only when you say "question mark"
     remove_fillers: bool = True         # um, uh, erm
     shorthand: bool = False             # "looking for group" -> LFG, "be right back" -> brb
     voice_channels: bool = True         # "party chat ...", "whisper Name ...", "slash dance"
