@@ -64,7 +64,9 @@ def voices() -> list[str]:
           "% { $_.VoiceInfo.Name }")
     out = subprocess.run(["powershell", "-NoProfile", "-Command", ps], capture_output=True,
                          text=True).stdout
-    return [v.strip() for v in out.splitlines() if v.strip()]
+    # Only Microsoft's built-in voices: third-party bridge voices (e.g. a TTS app that
+    # registers itself as a SAPI voice) can render silence when driven from here.
+    return [v.strip() for v in out.splitlines() if v.strip().startswith("Microsoft ")]
 
 
 def synth(text: str, voice: str, path: Path, rate: int = 0) -> None:

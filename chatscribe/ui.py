@@ -678,6 +678,7 @@ class SettingsWindow:
                                        "\"smiley face\")"),
                 ("auto_question_marks", "Add question marks automatically (off: only when "
                                         "you say \"question mark\")"),
+                ("yell_caps", "Yells in ALL CAPS with an exclamation point"),
                 ("remove_fillers", "Remove um / uh / repeated words"),
                 ("shorthand", "Chat shorthand (\"looking for group\" → LFG, "
                               "\"be right back\" → brb)"),

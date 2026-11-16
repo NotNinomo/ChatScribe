@@ -77,7 +77,7 @@ CASES = [
     ("emotional damage", ["Emotional damage"]),
     ("I just want to forget it", ["I just want to forget it"]),
     # --- must switch
-    ("Yell, inc!", ["/y Inc!"]),
+    ("Yell, inc!", ["/y INC!"]),
     # abbreviations that spell real words stay words unless spelled out
     ("nice bow", ["Nice bow"]),
     ("it's so hot in Tanaris", ["It's so hot in Tanaris"]),

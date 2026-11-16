@@ -56,6 +56,7 @@ Normal dictation tools like Windows voice typing mangle Azeroth: you get "on kir
   | "tell guild Onyxia at eight tonight" | `/g Onyxia at 8 tonight` |
   | "whisper Thrall, want to run Dire Maul" | `/w Thrall Want to run Dire Maul?` |
   | "raid warning, stack on the tank" | `/rw Stack on the tank` |
+  | "yell, inc left side" | `/y INC LEFT SIDE!` |
   | "trade chat, WTS Black Lotus" | `/2 WTS Black Lotus` |
   | "slash dance" | `/dance` |
   | "… scratch that" | *(nothing is sent)* |

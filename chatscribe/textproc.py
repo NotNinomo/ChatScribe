@@ -13,6 +13,7 @@ from .lexicon import Lexicon, _collapse_dotted_acronyms, zipf
 
 CHAT_LIMIT = 255
 EMOTE_PREFIXES = ("/e ", "/me ", "/em ", "/emote ")
+YELL_PREFIXES = ("/y ", "/yell ", "/sh ", "/shout ")
 
 
 @dataclass
@@ -374,6 +375,21 @@ def apply_style(text: str, style: str, protected: set, auto_questions: bool = Tr
     return text
 
 
+def shout(text: str) -> str:
+    """Yells: ALL CAPS with an exclamation point ("INC LEFT SIDE!", "WHERE ARE YOU?!")."""
+    text = text.strip()
+    if not text:
+        return text
+    text = re.sub(r"O7", "o7", text.upper())
+    if re.search(r"[:;]-?[)(DPp]$|<3$|xD$|XD$|o7$", text):
+        return text                                    # ends in a smiley - leave it
+    if text.endswith(".") and not text.endswith("..."):
+        text = text.rstrip(".")
+    if text.endswith("..."):
+        return text
+    return text if text.endswith("!") else text + "!"
+
+
 def wow_safe(text: str) -> str:
     # "|" starts WoW escape sequences (colours, links) - never send a bare one.
     text = text.replace("|", "/")
@@ -439,5 +455,8 @@ class Formatter:
             body = _decapitalize_first(tidy_spacing(body), protected).rstrip(".")
         else:
             body = apply_style(tidy_spacing(body), cfg.style, protected, auto_q)
+            if (getattr(cfg, "yell_caps", True)
+                    and (line.prefix or default_prefix).startswith(YELL_PREFIXES)):
+                body = shout(body)
         line.text = wow_safe(body)
         return line

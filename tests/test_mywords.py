@@ -115,3 +115,29 @@ def test_spoken_question_mark_still_works(noq):
         "Anyone want to run Deadmines?"]
     assert say(noq, "Anyone want to run Deadmines? Question mark.") == [
         "Anyone want to run Deadmines?"]
+
+
+# ------------------------------------------------------------------- yells
+def test_yell_formatting(fmt):
+    def yell(raw):
+        return fmt.process(raw, "/y ").text
+    assert yell("inc left side") == "INC LEFT SIDE!"
+    assert yell("Run away.") == "RUN AWAY!"
+    assert yell("where are you") == "WHERE ARE YOU?!"
+    assert yell("For the Horde!") == "FOR THE HORDE!"
+    assert yell("we did it smiley face") == "WE DID IT :)"
+    assert yell("meet at the barons") == "MEET AT THE BARRENS!"
+
+
+def test_spoken_yell_shouts(fmt):
+    line = fmt.process("yell, inc left side")
+    assert line.prefix == "/y " and line.text == "INC LEFT SIDE!"
+
+
+def test_party_key_not_shouting(fmt):
+    assert fmt.process("inc left side", "/p ").text == "Inc left side"
+
+
+def test_yell_caps_off(fmt):
+    fmt.cfg.yell_caps = False
+    assert fmt.process("inc left side", "/y ").text == "Inc left side"

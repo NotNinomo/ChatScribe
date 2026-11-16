@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.2
+- Yells go out IN ALL CAPS WITH AN EXCLAMATION POINT! Works for a Yell push-to-talk key
+  and for saying "yell, ...". Questions end in "?!". Turn it off in Settings.
+- Benchmark only uses Microsoft's built-in voices.
+
 ## 1.3.1
 - New setting: **Add question marks automatically**. Turn it off and lines only get a
   "?" when you say "question mark" out loud.
